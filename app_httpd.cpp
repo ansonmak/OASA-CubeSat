@@ -16,9 +16,16 @@
 #include "html_index.h"
 #include "esp32cam_pins.h"
 
-int motor_spd = 0;
+// variables send to slave
+bool send_slave = false;
 bool is_deploy = false;
+byte motor_spd = 0;
+bool motor_dir = true;
+
+// variables receiced from slave
 extern int battery_voltage;
+extern int light_sensor1;
+extern int light_sensor2;
 
 typedef struct {
   httpd_req_t *req;
@@ -234,32 +241,23 @@ static esp_err_t cmd_handler(httpd_req_t *req)
   } else if (!strcmp(variable, "quality")) res = s->set_quality(s, map(val,10,63,63,10));
   else if (!strcmp(variable, "led")) ledcWrite(LED_CHN, map(val,0,100,0,255));
   else if (!strcmp(variable, "deploy")){
-    if (!is_deploy) {
-      is_deploy = true;
-      digitalWrite(SOLENOID_PIN,HIGH);
-      Serial.println("Deploy!");
-    } else {
-      is_deploy = false;
-      digitalWrite(SOLENOID_PIN,LOW);
-      Serial.println("Retract!");
-    }
+    is_deploy = true;
+    send_slave = true;
+    Serial.println("Deploy!");
   }
   else if (!strcmp(variable, "speed")) {
-    motor_spd = map(val,-100,100,-255,255);
-    if (motor_spd > 0) {
-      digitalWrite(MOTOR_IN1_PIN,HIGH);
-      digitalWrite(MOTOR_IN2_PIN,LOW);
-    } else if (val < 0){
-      motor_spd = -motor_spd;
-      digitalWrite(MOTOR_IN1_PIN,LOW);
-      digitalWrite(MOTOR_IN2_PIN,HIGH);
-    } else {
-      digitalWrite(MOTOR_IN1_PIN,LOW);
-      digitalWrite(MOTOR_IN2_PIN,LOW);
-    }
+    int spd = map(val,-100,100,-255,255);
+    if (spd > 0) {
+      motor_dir = true;
+      motor_spd = byte(spd);
+    } else if (spd < 0){
+      motor_dir = false;
+      motor_spd = byte(-spd);
+    } else motor_spd = 0;
+    send_slave = true;
     Serial.print("Set motor speed:");
+    Serial.print(motor_dir ? '+' : '-');
     Serial.println(motor_spd);
-    ledcWrite(MOTOR_CHN, motor_spd);
   }
   else {
     Serial.println("variable");
@@ -283,7 +281,9 @@ static esp_err_t status_handler(httpd_req_t *req) {
   // data send to web server
   p += sprintf(p, "\"framesize\":%u,", s->status.framesize);
   p += sprintf(p, "\"quality\":%u,", s->status.quality);
-  p += sprintf(p, "\"bat_vol\":%u", battery_voltage);
+  p += sprintf(p, "\"bat_vol\":%u,", battery_voltage);
+  p += sprintf(p, "\"light1\":%u,", light_sensor1);
+  p += sprintf(p, "\"light2\":%u", light_sensor2);
   *p++ = '}';
   *p++ = 0;
   httpd_resp_set_type(req, "application/json");
@@ -351,28 +351,3 @@ void startCameraServer()
     }
 }
 
-void cubesat_setup() {
-  // pins for build-in LED
-  ledcSetup(LED_CHN, PWM_FREQ, PWM_RES);
-  ledcAttachPin(BUILDIN_LED_PIN, LED_CHN);
-  // flash led
-  for (int i=0;i<5;i++) {
-    ledcWrite(LED_CHN,10);  
-    delay(50);
-    ledcWrite(LED_CHN,0);
-    delay(50);    
-  }
-
-  // pins for motor direction control
-  pinMode(MOTOR_IN1_PIN,OUTPUT);
-  pinMode(MOTOR_IN2_PIN,OUTPUT);
-  digitalWrite(MOTOR_IN1_PIN,LOW);
-  digitalWrite(MOTOR_IN2_PIN,LOW);
-  // Pins for motor PWM control
-  ledcAttachPin(MOTOR_PWM_PIN, MOTOR_CHN);
-  ledcSetup(MOTOR_CHN, PWM_FREQ, PWM_RES);      
-  ledcWrite(MOTOR_CHN, 0);
-
-  // pins for solenoid
-  pinMode(SOLENOID_PIN,OUTPUT);
-}

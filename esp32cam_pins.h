@@ -19,19 +19,14 @@
 
 // pins for peripherals
 #define BUILDIN_LED_PIN    4
-#define MOTOR_PWM_PIN     12
-#define MOTOR_IN1_PIN     13
-#define MOTOR_IN2_PIN     15
-#define SOLENOID_PIN       2
 #define I2C_SDA           14 //I2C connect to 2 will cause flash fails
-#define I2C_SCL           16
+#define I2C_SCL           15
 
 // I2C address
 #define SLAVE_ADDR         8
 
 // channels for PWM
 #define LED_CHN            7
-#define MOTOR_CHN          8
 //PWM configs
 #define PWM_FREQ        2000
 #define PWM_RES            8 //value:0-255

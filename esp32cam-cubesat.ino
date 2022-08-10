@@ -19,15 +19,22 @@ const char* ssid = "chao";
 const char* password = "9C9fIfrw";
 
 unsigned long prev_t = 0;
-unsigned long slave_request_time = 100; // time interval get data from slave
+unsigned long slave_talk_time = 100; // time interval get data from slave
+// received data from slave
 int battery_voltage = 0;
+int light_sensor1 = 0;
+int light_sensor2 = 0;
+
+// data send to slave
+extern bool send_slave;
 extern bool is_deploy;
+extern byte motor_spd;
+extern bool motor_dir;
 
-void cubesat_setup();
 void startCameraServer();
+void led_blink();
 
-void setup() 
-{
+void setup() {
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); // disable brownout detector
   
   Serial.begin(115200);
@@ -80,12 +87,17 @@ void setup()
   s->set_hmirror(s, 1);
   s->set_quality(s, 35);
 
+  // set up pin for buildin led
+  ledcSetup(LED_CHN, PWM_FREQ, PWM_RES);
+  ledcAttachPin(BUILDIN_LED_PIN, LED_CHN);
+
   WiFi.begin(ssid, password);
   WiFi.setSleep(false);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    led_blink();
   }
   Serial.println("");
   Serial.println("WiFi connected");
@@ -95,7 +107,10 @@ void setup()
   Serial.print(WiFi.localIP());
   Serial.println("' to connect");
 
-  cubesat_setup();
+  // flash led
+  for (int i=0;i<5;i++) {
+    led_blink(); 
+  }
 
   // setup I2C
   Wire.begin(I2C_SDA, I2C_SCL);
@@ -104,19 +119,37 @@ void setup()
 
 void loop() {
   unsigned long cur_t = millis();
-  if (cur_t - prev_t >= slave_request_time) {
+  if (cur_t - prev_t >= slave_talk_time) {
     prev_t = cur_t;
-    Wire.requestFrom(SLAVE_ADDR, 1); // request 1 byte
+    Wire.requestFrom(SLAVE_ADDR, 3); // request 3 byte
 
+    char receive_byte[3];
+    int receive_idx = 0;
     while (Wire.available()) { 
-      char c = Wire.read(); //read byte
-      battery_voltage = int(c);
+      receive_byte[receive_idx] = Wire.read(); //read byte
+      receive_idx++;
     }
+    battery_voltage = int(receive_byte[0]);
+    light_sensor1 = int(receive_byte[1]);
+    light_sensor2 = int(receive_byte[2]);
 
-    if (!is_deploy){
-
-    } else{
-
+    if (send_slave) {
+      Wire.beginTransmission(SLAVE_ADDR);
+      if (is_deploy) {
+        Wire.write('!');
+        is_deploy = false;
+      }
+      Wire.write(motor_dir ? '+' : '-');
+      Wire.write(motor_spd);
+      Wire.endTransmission();
+      send_slave = false;
     }
   }
+}
+
+void led_blink() {
+  ledcWrite(LED_CHN,1);  
+  delay(50);
+  ledcWrite(LED_CHN,0);
+  delay(50); 
 }

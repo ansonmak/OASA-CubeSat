@@ -290,14 +290,14 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             }
             .control-container {
                 position: relative;
-                top: 50px;
+                top: 100px;
                 left: 15%;
                 /* margin-right: -50%;
                 transform: translate(-50%, -50%); */
             }
             .slider-container {
                 position: relative;
-                top: 150px;
+                top: 200px;
                 right: 50%;
                 width: 400px;
                 /* margin-left: -50%;
@@ -326,7 +326,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 -ms-transform: rotate(270deg);
                 transform: rotate(270deg);
             }
-            .battery-container {
+            .sensor-container {
                 position: relative;
                 top: 30px;
                 left: 20%;
@@ -356,10 +356,18 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 </div>
             </figure>    
 
-            <div id='battery_voltage', class='battery-container'>
+            <div id='sensor', class='sensor-container'>
                 Battery Voltage:
                 <br>
                 <div class="meter" id = "bat"></div>
+                <br>
+                Light sensor1:
+                <br>
+                <div class="meter" id = "light1"></div>
+                <br>
+                Light sensor2:
+                <br>
+                <div class="meter" id = "light2"></div>
             </div>
 
             <section id="buttons">
@@ -389,23 +397,36 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
         </section>
         <script>
             function reloadData() {
-                fetch(`${document.location.origin}/status`, {headers : { 'Content-Type': 'application/json','Accept': 'application/json'}})
+                fetch(`${document.location.origin}/status`)//, {headers : { 'Content-Type': 'application/json','Accept': 'application/json'}})
                 .then(response => response.json())
                 .then(data => {
+                    // battery voltage
                     vol = data.bat_vol
                     document.getElementById("bat").innerHTML=vol
                     document.getElementById("bat").style.width=(vol+"%")
-                    // if (data.bat_vol < 128){
-                    //     color = "#aa0000";
-                    //     }
-                    // else {
-                    //     color = "#00AA00";
-                    // }
                     max_col_val = 170;
                     red = (255 - vol)/255*max_col_val;
                     green = vol/255*max_col_val;
                     color = "rgb("+red+","+green+",0)";
                     document.getElementById("bat").style.backgroundColor=color
+                    // light sensor1
+                    light1 = data.light1
+                    document.getElementById("light1").innerHTML=light1
+                    document.getElementById("light1").style.width=(light1+"%")
+                    max_col_val = 170;
+                    red = (255 - light1)/255*max_col_val;
+                    green = light1/255*max_col_val;
+                    color = "rgb("+red+","+green+",0)";
+                    document.getElementById("light1").style.backgroundColor=color
+                    // light sensor2
+                    light2 = data.light2
+                    document.getElementById("light2").innerHTML=light2
+                    document.getElementById("light2").style.width=(light2+"%")
+                    max_col_val = 170;
+                    red = (255 - light2)/255*max_col_val;
+                    green = light2/255*max_col_val;
+                    color = "rgb("+red+","+green+",0)";
+                    document.getElementById("light2").style.backgroundColor=color
                 })
                 setTimeout(reloadData,50);
             }
