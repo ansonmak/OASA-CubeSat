@@ -21,7 +21,10 @@ const char* password = "9C9fIfrw";
 unsigned long prev_t = 0;
 unsigned long slave_talk_time = 100; // time interval get data from slave
 // received data from slave
-int battery_voltage = 0;
+int battery_voltage_sensor = 0;
+float battery_voltage = 0.0;
+float voltage_offset = 0.0;
+float battery_percentage = 0.0;
 int light_sensor1 = 0;
 int light_sensor2 = 0;
 
@@ -129,9 +132,11 @@ void loop() {
       receive_byte[receive_idx] = Wire.read(); //read byte
       receive_idx++;
     }
-    battery_voltage = int(receive_byte[0]);
+    battery_voltage_sensor = int(receive_byte[0]);
     light_sensor1 = int(receive_byte[1]);
     light_sensor2 = int(receive_byte[2]);
+    battery_voltage = float(battery_voltage_sensor)/255 * 5.0 * 2.0 + voltage_offset;
+    battery_percentage = mapfloat(battery_voltage, 3.7, 4.2, 0, 100);
 
     if (send_slave) {
       Wire.beginTransmission(SLAVE_ADDR);
@@ -152,4 +157,10 @@ void led_blink() {
   delay(50);
   ledcWrite(LED_CHN,0);
   delay(50); 
+}
+
+float mapfloat(float x, float in_min, float in_max, float out_min, float out_max) {
+  if (x < in_min) return out_min;
+  else if (x > in_max) return out_max;
+  else return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

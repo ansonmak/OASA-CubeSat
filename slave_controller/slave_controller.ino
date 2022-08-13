@@ -1,21 +1,21 @@
 #include <Wire.h>
 
-#define SLAVE_ADDR           8
-#define VOLTAGE_METER_PIN   A0
-#define LIGHT_SENSOR1_PIN   A1
-#define LIGHT_SENSOR2_PIN   A2
-#define SOLENOID_PIN         7
-#define MOTOR_PWM_PIN        6
-#define MOTOR_IN1_PIN        5
-#define MOTOR_IN2_PIN        4
+#define SLAVE_ADDR             8
+#define BATTERY_VOLTAGE_PIN   A0
+#define LIGHT_SENSOR1_PIN     A1
+#define LIGHT_SENSOR2_PIN     A2
+#define SOLENOID_PIN           7
+#define MOTOR_PWM_PIN          6
+#define MOTOR_IN1_PIN          5
+#define MOTOR_IN2_PIN          4
 
 unsigned long prev_t = 0;
 unsigned long control_time  = 50;  // run every ms 
 unsigned long solenoid_t = 0;
-unsigned long solenoid_timer = 1000;
+unsigned long solenoid_timer = 500; // solenoid active duration
 bool start_solenoid_timer = false;
 
-byte battery_voltage = 0;
+byte battery_voltage_sensor = 0;
 byte light_sensor1 = 0;
 byte light_sensor2 = 0;
 bool motor_dir = true;
@@ -38,7 +38,7 @@ void loop() {
   unsigned long cur_t = millis();
   if (cur_t - prev_t >= control_time) {
     prev_t = cur_t;
-    battery_voltage = map(analogRead(VOLTAGE_METER_PIN),0,1023,0,255);
+    battery_voltage_sensor = map(analogRead(BATTERY_VOLTAGE_PIN),0,1023,0,255);
     light_sensor1 = map(analogRead(LIGHT_SENSOR1_PIN),0,1023,0,255);
     light_sensor2 = map(analogRead(LIGHT_SENSOR2_PIN),0,1023,0,255);
 
@@ -73,7 +73,7 @@ void loop() {
 }
 
 void requestEvent() {
-  Wire.write(battery_voltage);
+  Wire.write(battery_voltage_sensor);
   Wire.write(light_sensor1);
   Wire.write(light_sensor2);
 }

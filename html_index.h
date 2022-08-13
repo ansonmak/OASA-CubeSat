@@ -330,7 +330,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 position: relative;
                 top: 30px;
                 left: 20%;
-                width: 150px;
+                width: 200px;
                 color: "#0000AA";
             }
             .meter{
@@ -339,11 +339,13 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 padding-left: 5px;
                 padding-top: 5px;
                 height:   25px;
+                width: 150px;
                 border-radius: 5px;
                 color: #FFFFFF;
                 line-height: 20px;
                 transition: all 200ms ease-in-out;
                 background-color: #00AA00;
+                white-space: nowrap;
             }
         </style>
     </head>
@@ -357,15 +359,15 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             </figure>    
 
             <div id='sensor', class='sensor-container'>
-                Battery Voltage:
+                Battery Percentage:
                 <br>
                 <div class="meter" id = "bat"></div>
                 <br>
-                Light sensor1:
+                Light sensor 1:
                 <br>
                 <div class="meter" id = "light1"></div>
                 <br>
-                Light sensor2:
+                Light sensor 2:
                 <br>
                 <div class="meter" id = "light2"></div>
             </div>
@@ -402,17 +404,18 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 .then(data => {
                     // battery voltage
                     vol = data.bat_vol
-                    document.getElementById("bat").innerHTML=vol
-                    document.getElementById("bat").style.width=(vol+"%")
+                    perc = data.bat_percent
+                    document.getElementById("bat").style.width=(perc+"%")
+                    document.getElementById("bat").innerHTML= perc + "%(" + vol + "V)"
                     max_col_val = 170;
-                    red = (255 - vol)/255*max_col_val;
-                    green = vol/255*max_col_val;
+                    red = (100 - perc)/100 * max_col_val;
+                    green = perc/100 * max_col_val;
                     color = "rgb("+red+","+green+",0)";
                     document.getElementById("bat").style.backgroundColor=color
                     // light sensor1
                     light1 = data.light1
-                    document.getElementById("light1").innerHTML=light1
                     document.getElementById("light1").style.width=(light1+"%")
+                    document.getElementById("light1").innerHTML=light1
                     max_col_val = 170;
                     red = (255 - light1)/255*max_col_val;
                     green = light1/255*max_col_val;
@@ -420,8 +423,8 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                     document.getElementById("light1").style.backgroundColor=color
                     // light sensor2
                     light2 = data.light2
-                    document.getElementById("light2").innerHTML=light2
                     document.getElementById("light2").style.width=(light2+"%")
+                    document.getElementById("light2").innerHTML=light2
                     max_col_val = 170;
                     red = (255 - light2)/255*max_col_val;
                     green = light2/255*max_col_val;
