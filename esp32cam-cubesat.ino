@@ -23,7 +23,9 @@ unsigned long slave_talk_time = 100; // time interval get data from slave
 // received data from slave
 int battery_voltage_sensor = 0;
 float battery_voltage = 0.0;
-float voltage_offset = 0.0;
+const float voltage_offset = 0.15;
+const float battery_min_voltage = 3.2;
+const float battery_max_voltage = 4.1;
 float battery_percentage = 0.0;
 int light_sensor1 = 0;
 int light_sensor2 = 0;
@@ -136,7 +138,7 @@ void loop() {
     light_sensor1 = int(receive_byte[1]);
     light_sensor2 = int(receive_byte[2]);
     battery_voltage = float(battery_voltage_sensor)/255 * 5.0 * 2.0 + voltage_offset;
-    battery_percentage = mapfloat(battery_voltage, 3.7, 4.2, 0, 100);
+    battery_percentage = mapfloat(battery_voltage, battery_min_voltage, battery_max_voltage, 0, 100);
 
     if (send_slave) {
       Wire.beginTransmission(SLAVE_ADDR);
