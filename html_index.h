@@ -347,6 +347,13 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 background-color: #00AA00;
                 white-space: nowrap;
             }
+            .imu-container {
+                position: relative;
+                top: 60px;
+                left: 20%;
+                width: 200px;
+                color: "#0000AA";
+            }
         </style>
     </head>
     <body onload="reloadData()">
@@ -370,6 +377,14 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 Light sensor 2:
                 <br>
                 <div class="meter" id = "light2"></div>
+            </div>
+
+            <div id='IMU', class='imu-container'>
+                Roll: <div id = "roll"></div>
+                <br>
+                Pitch: <div id = "pitch"></div>
+                <br>
+                Yaw:<div id = "yaw"></div>
             </div>
 
             <section id="buttons">
@@ -430,6 +445,13 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                     green = light2/255*max_col_val;
                     color = "rgb("+red+","+green+",0)";
                     document.getElementById("light2").style.backgroundColor=color
+                    //imu
+                    roll = data.roll
+                    document.getElementById("roll").innerHTML=roll
+                    pitch = data.pitch
+                    document.getElementById("pitch").innerHTML=pitch
+                    yaw = data.yaw
+                    document.getElementById("yaw").innerHTML=yaw
                 })
                 setTimeout(reloadData,50);
             }

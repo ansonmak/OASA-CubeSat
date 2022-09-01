@@ -13,13 +13,16 @@
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 #include "Wire.h"
+#include "MPU9250/MPU9250.h"
 
 // Setup WiFi Access Point Credentials
-const char* ssid = "chao";
-const char* password = "9C9fIfrw";
+const char* ssid = "1302"; //"makmak"; //"chao"; //"WorkCave-Co-workers";
+const char* password = "YjOuDHa4"; //"64340466"; //"9C9fIfrw"; //"wc21594288";
 
-unsigned long prev_t = 0;
+unsigned long slave_prev_t = 0;
 unsigned long slave_talk_time = 100; // time interval get data from slave
+unsigned long imu_prev_t = 0;
+unsigned long imu_talk_time = 30;
 // received data from slave
 int battery_voltage_sensor = 0;
 float battery_voltage = 0.0;
@@ -29,12 +32,17 @@ const float battery_max_voltage = 4.1;
 float battery_percentage = 0.0;
 int light_sensor1 = 0;
 int light_sensor2 = 0;
+float imu_roll = 0.0;
+float imu_pitch = 0.0;
+float imu_yaw = 0.0;
 
 // data send to slave
 extern bool send_slave;
 extern bool is_deploy;
 extern byte motor_spd;
 extern bool motor_dir;
+
+MPU9250 IMU;
 
 void startCameraServer();
 void led_blink();
@@ -119,13 +127,25 @@ void setup() {
 
   // setup I2C
   Wire.begin(I2C_SDA, I2C_SCL);
-  prev_t = millis();
+  slave_prev_t = millis();
+
+  if (!IMU.setup(0x68)) {
+      while (1) {
+          Serial.println("MPU connection failed. Please check your connection with connection_check example.");
+          delay(3000);
+      }
+  }
+  IMU.setMagneticDeclination(-3.26); // Hong Kong
+  // delay(3000);
+  // IMU.calibrateAccelGyro();
+  // IMU.calibrateMag();
 }
 
 void loop() {
   unsigned long cur_t = millis();
-  if (cur_t - prev_t >= slave_talk_time) {
-    prev_t = cur_t;
+
+  if (cur_t - slave_prev_t >= slave_talk_time) {
+    slave_prev_t = cur_t;
     Wire.requestFrom(SLAVE_ADDR, 3); // request 3 byte
 
     char receive_byte[3];
@@ -150,6 +170,27 @@ void loop() {
       Wire.write(motor_spd);
       Wire.endTransmission();
       send_slave = false;
+    }
+  }
+
+  if (cur_t - imu_prev_t >= imu_talk_time) {
+    imu_prev_t = cur_t;
+    if (IMU.update()) {
+      // Serial.print(IMU.getAccX()); Serial.print(", ");
+      // Serial.print(IMU.getAccY()); Serial.print(", ");
+      // Serial.print(IMU.getAccZ()); Serial.print(", ");
+      // Serial.print(IMU.getGyroX()); Serial.print(", ");
+      // Serial.print(IMU.getGyroY()); Serial.print(", ");
+      // Serial.print(IMU.getGyroZ()); Serial.print(", ");
+      // Serial.print(IMU.getMagX()); Serial.print(", ");
+      // Serial.print(IMU.getMagY()); Serial.print(", ");
+      // Serial.println(IMU.getMagZ());
+      imu_roll = IMU.getRoll();
+      imu_pitch = IMU.getPitch();
+      imu_yaw = IMU.getYaw();
+      // Serial.print(imu_roll); Serial.print(", ");
+      // Serial.print(imu_pitch); Serial.print(", ");
+      // Serial.println(imu_yaw);
     }
   }
 }

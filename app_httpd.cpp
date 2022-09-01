@@ -27,6 +27,9 @@ extern float battery_voltage;
 extern float battery_percentage;
 extern int light_sensor1;
 extern int light_sensor2;
+extern float imu_roll;
+extern float imu_pitch;
+extern float imu_yaw;
 
 typedef struct {
   httpd_req_t *req;
@@ -285,7 +288,10 @@ static esp_err_t status_handler(httpd_req_t *req) {
   p += sprintf(p, "\"bat_vol\":%.2f,", battery_voltage);
   p += sprintf(p, "\"bat_percent\":%.0f,", battery_percentage);
   p += sprintf(p, "\"light1\":%u,", light_sensor1);
-  p += sprintf(p, "\"light2\":%u", light_sensor2);
+  p += sprintf(p, "\"light2\":%u,", light_sensor2);
+  p += sprintf(p, "\"roll\":%.1f,", imu_roll);
+  p += sprintf(p, "\"pitch\":%.1f,", imu_pitch);
+  p += sprintf(p, "\"yaw\":%.1f", imu_yaw);
   *p++ = '}';
   *p++ = 0;
   httpd_resp_set_type(req, "application/json");
