@@ -351,8 +351,6 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 position: relative;
                 top: 60px;
                 left: 20%;
-                width: 200px;
-                color: "#0000AA";
             }
         </style>
     </head>
@@ -380,11 +378,17 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             </div>
 
             <div id='IMU', class='imu-container'>
-                Roll: <div id = "roll"></div>
+                Roll: <span id = "roll"></span>
                 <br>
-                Pitch: <div id = "pitch"></div>
+                Pitch: <span id = "pitch"></span>
                 <br>
-                Yaw:<div id = "yaw"></div>
+                Yaw: <span id = "yaw"></span>
+                <br>
+                MagX: <span id = "Mx"></span>
+                <br>
+                MagY: <span id = "My"></span>
+                <br>
+                MagZ: <span id = "Mz"></span>
             </div>
 
             <section id="buttons">
@@ -452,6 +456,12 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                     document.getElementById("pitch").innerHTML=pitch
                     yaw = data.yaw
                     document.getElementById("yaw").innerHTML=yaw
+                    MagX = data.MagX
+                    document.getElementById("Mx").innerHTML=MagX
+                    MagY = data.MagY
+                    document.getElementById("My").innerHTML=MagY
+                    MagZ = data.MagZ
+                    document.getElementById("Mz").innerHTML=MagZ
                 })
                 setTimeout(reloadData,50);
             }

@@ -30,6 +30,9 @@ extern int light_sensor2;
 extern float imu_roll;
 extern float imu_pitch;
 extern float imu_yaw;
+extern float imu_MagX;
+extern float imu_MagY;
+extern float imu_MagZ;
 
 typedef struct {
   httpd_req_t *req;
@@ -291,7 +294,10 @@ static esp_err_t status_handler(httpd_req_t *req) {
   p += sprintf(p, "\"light2\":%u,", light_sensor2);
   p += sprintf(p, "\"roll\":%.1f,", imu_roll);
   p += sprintf(p, "\"pitch\":%.1f,", imu_pitch);
-  p += sprintf(p, "\"yaw\":%.1f", imu_yaw);
+  p += sprintf(p, "\"yaw\":%.1f,", imu_yaw);
+  p += sprintf(p, "\"MagX\":%.1f,", imu_MagX);
+  p += sprintf(p, "\"MagY\":%.1f,", imu_MagY);
+  p += sprintf(p, "\"MagZ\":%.1f", imu_MagZ);
   *p++ = '}';
   *p++ = 0;
   httpd_resp_set_type(req, "application/json");

@@ -16,13 +16,13 @@
 #include "MPU9250/MPU9250.h"
 
 // Setup WiFi Access Point Credentials
-const char* ssid = "1302"; //"makmak"; //"chao"; //"WorkCave-Co-workers";
-const char* password = "YjOuDHa4"; //"64340466"; //"9C9fIfrw"; //"wc21594288";
+const char* ssid = "chao"; //"wang"; //"1302"; //"WorkCave-Co-workers"; //"makmak"; 
+const char* password = "9C9fIfrw"; //"groupwang";   //"YjOuDHa4"; //"wc21594288";  //"64340466"; 
 
 unsigned long slave_prev_t = 0;
 unsigned long slave_talk_time = 100; // time interval get data from slave
 unsigned long imu_prev_t = 0;
-unsigned long imu_talk_time = 30;
+unsigned long imu_talk_time = 20;
 // received data from slave
 int battery_voltage_sensor = 0;
 float battery_voltage = 0.0;
@@ -35,6 +35,9 @@ int light_sensor2 = 0;
 float imu_roll = 0.0;
 float imu_pitch = 0.0;
 float imu_yaw = 0.0;
+float imu_MagX = 0.0;
+float imu_MagY = 0.0;
+float imu_MagZ = 0.0;
 
 // data send to slave
 extern bool send_slave;
@@ -121,24 +124,30 @@ void setup() {
   Serial.println("' to connect");
 
   // flash led
-  for (int i=0;i<5;i++) {
-    led_blink(); 
-  }
+  led_multi_blink(5);
 
   // setup I2C
   Wire.begin(I2C_SDA, I2C_SCL);
   slave_prev_t = millis();
 
-  if (!IMU.setup(0x68)) {
-      while (1) {
-          Serial.println("MPU connection failed. Please check your connection with connection_check example.");
-          delay(3000);
-      }
-  }
-  IMU.setMagneticDeclination(-3.26); // Hong Kong
+  // if (!IMU.setup(0x68)) {
+  //     while (1) {
+  //         Serial.println("MPU connection failed. Please check your connection with connection_check example.");
+  //         delay(3000);
+  //     }
+  // }
+  // delay(5000);
+  // IMU.setMagneticDeclination(-3.26); // Hong Kong
+  // Serial.println("Calibrating Accelerometer Gyroscope...");
+  // led_blink(); 
   // delay(3000);
   // IMU.calibrateAccelGyro();
+  // Serial.println("Calibrating Magentometer...");
+  // led_blink();
+  // delay(3000);
   // IMU.calibrateMag();
+  // led_multi_blink(5);
+  // Serial.println("Calibration done.");
 }
 
 void loop() {
@@ -175,23 +184,26 @@ void loop() {
 
   if (cur_t - imu_prev_t >= imu_talk_time) {
     imu_prev_t = cur_t;
-    if (IMU.update()) {
-      // Serial.print(IMU.getAccX()); Serial.print(", ");
-      // Serial.print(IMU.getAccY()); Serial.print(", ");
-      // Serial.print(IMU.getAccZ()); Serial.print(", ");
-      // Serial.print(IMU.getGyroX()); Serial.print(", ");
-      // Serial.print(IMU.getGyroY()); Serial.print(", ");
-      // Serial.print(IMU.getGyroZ()); Serial.print(", ");
-      // Serial.print(IMU.getMagX()); Serial.print(", ");
-      // Serial.print(IMU.getMagY()); Serial.print(", ");
-      // Serial.println(IMU.getMagZ());
-      imu_roll = IMU.getRoll();
-      imu_pitch = IMU.getPitch();
-      imu_yaw = IMU.getYaw();
-      // Serial.print(imu_roll); Serial.print(", ");
-      // Serial.print(imu_pitch); Serial.print(", ");
-      // Serial.println(imu_yaw);
-    }
+    // if (IMU.update()) {
+    //   // Serial.print(IMU.getAccX()); Serial.print(", ");
+    //   // Serial.print(IMU.getAccY()); Serial.print(", ");
+    //   // Serial.print(IMU.getAccZ()); Serial.print(", ");
+    //   // Serial.print(IMU.getGyroX()); Serial.print(", ");
+    //   // Serial.print(IMU.getGyroY()); Serial.print(", ");
+    //   // Serial.print(IMU.getGyroZ()); Serial.print(", ");
+    //   // Serial.print(IMU.getMagX()); Serial.print(", ");
+    //   // Serial.print(IMU.getMagY()); Serial.print(", ");
+    //   // Serial.println(IMU.getMagZ());
+    //   imu_roll = IMU.getRoll();
+    //   imu_pitch = IMU.getPitch();
+    //   imu_yaw = IMU.getYaw();
+    //   imu_MagX = IMU.getMagX();
+    //   imu_MagY = IMU.getMagY();
+    //   imu_MagZ = IMU.getMagZ();
+    //   // Serial.print(imu_roll); Serial.print(", ");
+    //   // Serial.print(imu_pitch); Serial.print(", ");
+    //   // Serial.println(imu_yaw);
+    // }
   }
 }
 
@@ -200,6 +212,12 @@ void led_blink() {
   delay(50);
   ledcWrite(LED_CHN,0);
   delay(50); 
+}
+
+void led_multi_blink(int times) {
+  for (int i=0;i<times;i++) {
+    led_blink(); 
+  }
 }
 
 float mapfloat(float x, float in_min, float in_max, float out_min, float out_max) {
