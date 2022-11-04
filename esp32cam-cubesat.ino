@@ -14,6 +14,8 @@
 #include "soc/rtc_cntl_reg.h"
 #include "Wire.h"
 #include "MPU9250/MPU9250.h"
+#include <Adafruit_GFX.h> // Requires Adafruit GFX library
+#include <Adafruit_SSD1306.h> // requires Adafruit SSD1306 library
 
 // Setup WiFi Access Point Credentials
 const char* ssid = "chao"; //"wang"; //"1302"; //"WorkCave-Co-workers"; //"makmak"; 
@@ -46,6 +48,12 @@ extern byte motor_spd;
 extern bool motor_dir;
 
 MPU9250 IMU;
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+#define OLED_RESET -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void startCameraServer();
 void led_blink();
@@ -129,6 +137,20 @@ void setup() {
   // setup I2C
   Wire.begin(I2C_SDA, I2C_SCL);
   slave_prev_t = millis();
+
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+  delay(2000);
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println(WiFi.localIP());
+  display.display(); 
 
   // if (!IMU.setup(0x68)) {
   //     while (1) {
