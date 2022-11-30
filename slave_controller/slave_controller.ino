@@ -5,6 +5,7 @@
 #define LIGHT_SENSOR1_PIN     A1
 #define LIGHT_SENSOR2_PIN     A2
 #define SOLENOID_PIN           7
+#define DRV_TB6612FGN // Comment this line if using DRV8833 DC motor driver
 #define MOTOR_PWM_PIN          6
 #define MOTOR_IN1_PIN          5
 #define MOTOR_IN2_PIN          4
@@ -42,6 +43,7 @@ void loop() {
     light_sensor1 = map(analogRead(LIGHT_SENSOR1_PIN),0,1023,0,255);
     light_sensor2 = map(analogRead(LIGHT_SENSOR2_PIN),0,1023,0,255);
 
+    #ifdef DRV_TB6612FGN
     if (motor_spd == 0) {
       digitalWrite(MOTOR_IN1_PIN, LOW);
       digitalWrite(MOTOR_IN2_PIN, LOW);
@@ -53,6 +55,18 @@ void loop() {
       digitalWrite(MOTOR_IN2_PIN, HIGH);
     }
     analogWrite(MOTOR_PWM_PIN, motor_spd);
+    #else
+    if (motor_spd == 0) {
+      digitalWrite(MOTOR_IN1_PIN, LOW);
+      digitalWrite(MOTOR_IN2_PIN, LOW);
+    } else if (motor_dir) {
+      analogWrite(MOTOR_IN1_PIN, motor_spd);
+      digitalWrite(MOTOR_IN2_PIN, LOW);
+    } else if (!motor_dir) {
+      digitalWrite(MOTOR_IN1_PIN, LOW);
+      analogWrite(MOTOR_IN2_PIN, motor_spd);
+    }
+    #endif
 
     if(is_deploy) {
       digitalWrite(SOLENOID_PIN,HIGH);
