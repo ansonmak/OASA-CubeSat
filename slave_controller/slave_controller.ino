@@ -6,14 +6,14 @@
 #define LIGHT_SENSOR2_PIN     A2
 #define SOLENOID_PIN           7
 #define DRV_TB6612FGN // Comment this line if using DRV8833 DC motor driver
-#define MOTOR_PWM_PIN          6
+#define MOTOR_PWM_PIN          4
 #define MOTOR_IN1_PIN          5
-#define MOTOR_IN2_PIN          4
+#define MOTOR_IN2_PIN          6
 
 unsigned long prev_t = 0;
 unsigned long control_time  = 50;  // run every ms 
 unsigned long solenoid_t = 0;
-unsigned long solenoid_timer = 500; // solenoid active duration
+unsigned long solenoid_timer = 100; //500 // solenoid active duration
 bool start_solenoid_timer = false;
 
 byte battery_voltage_sensor = 0;
