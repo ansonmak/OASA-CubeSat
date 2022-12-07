@@ -4,6 +4,8 @@
 #define BATTERY_VOLTAGE_PIN   A0
 #define LIGHT_SENSOR1_PIN     A1
 #define LIGHT_SENSOR2_PIN     A2
+#define LIGHT_SENSOR3_PIN     A3
+#define LIGHT_SENSOR4_PIN     A6
 #define SOLENOID_PIN           7
 #define DRV_TB6612FGN // Comment this line if using DRV8833 DC motor driver
 #define MOTOR_PWM_PIN          4
@@ -19,6 +21,8 @@ bool start_solenoid_timer = false;
 byte battery_voltage_sensor = 0;
 byte light_sensor1 = 0;
 byte light_sensor2 = 0;
+byte light_sensor3 = 0;
+byte light_sensor4 = 0;
 bool motor_dir = true;
 int motor_spd = 0;
 bool is_deploy = false;
@@ -42,6 +46,8 @@ void loop() {
     battery_voltage_sensor = map(analogRead(BATTERY_VOLTAGE_PIN),0,1023,0,255);
     light_sensor1 = map(analogRead(LIGHT_SENSOR1_PIN),0,1023,0,255);
     light_sensor2 = map(analogRead(LIGHT_SENSOR2_PIN),0,1023,0,255);
+    light_sensor3 = map(analogRead(LIGHT_SENSOR3_PIN),0,1023,0,255);
+    light_sensor4 = map(analogRead(LIGHT_SENSOR4_PIN),0,1023,0,255);
 
     #ifdef DRV_TB6612FGN
     if (motor_spd == 0) {
@@ -90,6 +96,8 @@ void requestEvent() {
   Wire.write(battery_voltage_sensor);
   Wire.write(light_sensor1);
   Wire.write(light_sensor2);
+  Wire.write(light_sensor3);
+  Wire.write(light_sensor4);
 }
 
 void receiveEvent(int howMany) {

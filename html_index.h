@@ -371,13 +371,18 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 Light sensor 1:
                 <br>
                 <div class="meter" id = "light1"></div>
-                <br>
                 Light sensor 2:
                 <br>
                 <div class="meter" id = "light2"></div>
+                Light sensor 3:
+                <br>
+                <div class="meter" id = "light3"></div>
+                Light sensor 4:
+                <br>
+                <div class="meter" id = "light4"></div>
             </div>
 
-            <div id='IMU', class='imu-container'>
+            <!-- <div id='IMU', class='imu-container'>
                 Roll: <span id = "roll"></span>
                 <br>
                 Pitch: <span id = "pitch"></span>
@@ -389,7 +394,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 MagY: <span id = "My"></span>
                 <br>
                 MagZ: <span id = "Mz"></span>
-            </div>
+            </div> -->
 
             <section id="buttons">
                 <div id="controls" class="control-container">
@@ -449,19 +454,39 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                     green = light2/255*max_col_val;
                     color = "rgb("+red+","+green+",0)";
                     document.getElementById("light2").style.backgroundColor=color
+                    // light sensor3
+                    light3 = data.light3
+                    document.getElementById("light3").style.width=(light3+"%")
+                    document.getElementById("light3").innerHTML=light3
+                    max_col_val = 170;
+                    red = (255 - light3)/255*max_col_val;
+                    green = light3/255*max_col_val;
+                    color = "rgb("+red+","+green+",0)";
+                    document.getElementById("light3").style.backgroundColor=color
+                    // light sensor4
+                    light4 = data.light4
+                    document.getElementById("light4").style.width=(light4+"%")
+                    document.getElementById("light4").innerHTML=light4
+                    max_col_val = 170;
+                    red = (255 - light4)/255*max_col_val;
+                    green = light4/255*max_col_val;
+                    color = "rgb("+red+","+green+",0)";
+                    document.getElementById("light4").style.backgroundColor=color
+
                     //imu
-                    roll = data.roll
-                    document.getElementById("roll").innerHTML=roll
-                    pitch = data.pitch
-                    document.getElementById("pitch").innerHTML=pitch
-                    yaw = data.yaw
-                    document.getElementById("yaw").innerHTML=yaw
-                    MagX = data.MagX
-                    document.getElementById("Mx").innerHTML=MagX
-                    MagY = data.MagY
-                    document.getElementById("My").innerHTML=MagY
-                    MagZ = data.MagZ
-                    document.getElementById("Mz").innerHTML=MagZ
+                    // roll = data.roll
+                    // document.getElementById("roll").innerHTML=roll
+                    // pitch = data.pitch
+                    // document.getElementById("pitch").innerHTML=pitch
+                    // yaw = data.yaw
+                    // document.getElementById("yaw").innerHTML=yaw
+                    // MagX = data.MagX
+                    // document.getElementById("Mx").innerHTML=MagX
+                    // MagY = data.MagY
+                    // document.getElementById("My").innerHTML=MagY
+                    // MagZ = data.MagZ
+                    // document.getElementById("Mz").innerHTML=MagZ
+
                 })
                 setTimeout(reloadData,50);
             }

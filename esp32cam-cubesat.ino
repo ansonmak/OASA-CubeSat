@@ -34,6 +34,8 @@ const float battery_max_voltage = 4.1;
 float battery_percentage = 0.0;
 int light_sensor1 = 0;
 int light_sensor2 = 0;
+int light_sensor3 = 0;
+int light_sensor4 = 0;
 float imu_roll = 0.0;
 float imu_pitch = 0.0;
 float imu_yaw = 0.0;
@@ -154,6 +156,7 @@ void setup() {
   display.println(WiFi.localIP());
   display.display(); 
 
+  // MPU 9250 i2c connection
   // if (!IMU.setup(0x68)) {
   //     while (1) {
   //         Serial.println("MPU connection failed. Please check your connection with connection_check example.");
@@ -179,9 +182,10 @@ void loop() {
 
   if (cur_t - slave_prev_t >= slave_talk_time) {
     slave_prev_t = cur_t;
-    Wire.requestFrom(SLAVE_ADDR, 3); // request 3 byte
+    int byte_num = 5; // number of bytes to request
+    Wire.requestFrom(SLAVE_ADDR, byte_num);
 
-    char receive_byte[3];
+    char receive_byte[byte_num];
     int receive_idx = 0;
     while (Wire.available()) { 
       receive_byte[receive_idx] = Wire.read(); //read byte
@@ -190,6 +194,8 @@ void loop() {
     battery_voltage_sensor = int(receive_byte[0]);
     light_sensor1 = int(receive_byte[1]);
     light_sensor2 = int(receive_byte[2]);
+    light_sensor3 = int(receive_byte[3]);
+    light_sensor4 = int(receive_byte[4]);
     battery_voltage = float(battery_voltage_sensor)/255 * 5.0 * 2.0 + voltage_offset;
     battery_percentage = mapfloat(battery_voltage, battery_min_voltage, battery_max_voltage, 0, 100);
 
