@@ -18,8 +18,8 @@
 #include <Adafruit_SSD1306.h> // requires Adafruit SSD1306 library
 
 // Setup WiFi Access Point Credentials
-const char* ssid = "Anson iPhone";//"chao"; //"wang"; //"1302"; //"WorkCave-Co-workers"; //"makmak"; 
-const char* password = "ansonmak";//"9C9fIfrw"; //"groupwang";   //"YjOuDHa4"; //"wc21594288";  //"64340466"; 
+const char* ssid = "Anson iPhone"; //"chao"; //"wang";
+const char* password = "ansonmak"; //"9C9fIfrw"; //"groupwang";
 
 unsigned long slave_prev_t = 0;
 unsigned long slave_talk_time = 100; // time interval get data from slave
