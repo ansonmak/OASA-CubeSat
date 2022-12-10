@@ -8,7 +8,7 @@
 #define LIGHT_SENSOR4_PIN     A6
 #define SOLENOID_PIN           7
 #define DRV_TB6612FGN // Comment this line if using DRV8833 DC motor driver
-#define MOTOR_PWM_PIN          4
+#define MOTOR_PWM_PIN          3
 #define MOTOR_IN1_PIN          5
 #define MOTOR_IN2_PIN          6
 
