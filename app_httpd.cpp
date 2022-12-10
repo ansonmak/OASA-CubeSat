@@ -287,6 +287,7 @@ static esp_err_t status_handler(httpd_req_t *req) {
   sensor_t * s = esp_camera_sensor_get();
   char * p = json_response;
   *p++ = '{';
+
   // data send to web server
   p += sprintf(p, "\"framesize\":%u,", s->status.framesize);
   p += sprintf(p, "\"quality\":%u,", s->status.quality);
@@ -302,6 +303,8 @@ static esp_err_t status_handler(httpd_req_t *req) {
   // p += sprintf(p, "\"MagX\":%.1f,", imu_MagX);
   // p += sprintf(p, "\"MagY\":%.1f,", imu_MagY);
   // p += sprintf(p, "\"MagZ\":%.1f", imu_MagZ);
+  // last data remove comma 
+  
   *p++ = '}';
   *p++ = 0;
   httpd_resp_set_type(req, "application/json");

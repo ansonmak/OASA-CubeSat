@@ -134,7 +134,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 outline: 0;
                 width: 100px;  
             }
-            .button2 {background-color: #008CBA; width: 100px;} /* Blue */
+            .button2 {background-color: #008CBA; width: 130px;} /* Blue */
             .button3 {background-color: #f44336; width: 100px;} /* Red */ 
             .button4 {background-color: #e7e7e7; color: black; width: 120px;} /* Gray */ 
             .button5 {background-color: #555555; width: 100px;} /* Black */
@@ -319,7 +319,28 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             .hidden {
                 display: none;
             }
+            .rotate0 {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
             .rotate90 {
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                -o-transform: rotate(90deg);
+                -ms-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+            .rotate180 {
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+            .rotate270 {
                 -webkit-transform: rotate(270deg);
                 -moz-transform: rotate(270deg);
                 -o-transform: rotate(270deg);
@@ -359,7 +380,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             <figure>
                 <div id="stream-container" class="image-container">
                 <div class="close" id="close-stream">×</div>
-                <img id="stream" src=""> <!-- class="rotate90"> -->
+                <img id="stream" src="">  <!-- class="rotate0"> -->
                 </div>
             </figure>    
 
@@ -399,7 +420,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             <section id="buttons">
                 <div id="controls" class="control-container">
                   <table>
-                  <tr><td align="center"><button class="button button6" id="get-still">Image</button></td><td align="center"><button class="button button7" id="toggle-stream">Start Stream</button></td><td align="center"><button class="button button4" id="deploy" onclick="fetch(document.location.origin+'/control?var=deploy&val=0');">Deploy</button></td></tr>
+                  <tr><td align="center"><button class="button button6" id="get-still">Image</button></td><td align="center"><button class="button button7" id="toggle-stream">Start Stream</button></td><td align="center"><button class="button button2" id="rotate-stream" onclick="rotateStream()">Rotate Stream</button></td><td align="center"><button class="button button4" id="deploy" onclick="fetch(document.location.origin+'/control?var=deploy&val=0');">Deploy</button></td></tr>
                   </table>
                 </div>
                 <div id="sliders" class="slider-container">
@@ -407,10 +428,10 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                   <br>
                   <input type="range" id="speed" min="-100" max="100" value="0" oninput="try{fetch(document.location.origin+'/control?var=speed&val='+this.value);motor_spd.value = this.value;}catch(e){}">
                   <br>
-                  LED Brightness: <output id="led_bright">0</output>%
+                  <!-- LED Brightness: <output id="led_bright">0</output>%
                   <br>
                   <input type="range" id="led" min="0" max="100" value="0" oninput="try{fetch(document.location.origin+'/control?var=led&val='+this.value);led_bright.value = this.value;}catch(e){}">
-                  <br>
+                  <br> -->
                   Video Size:
                   <br>
                   <input type="range" id="framesize" min="3" max="7" value="3" oninput="try{fetch(document.location.origin+'/control?var=framesize&val='+this.value);}catch(e){}">
@@ -422,6 +443,16 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             </section>         
         </section>
         <script>
+            let streamRotation = 0;
+            function rotateStream() {
+                streamRotation += 90; // add 90 degrees, you can change this as you want
+            if (streamRotation === 360) { 
+                // 360 means rotate back to 0
+                streamRotation = 0;
+            }
+            document.querySelector("#stream").style.transform = `rotate(${streamRotation}deg)`;
+            }
+
             function reloadData() {
                 fetch(`${document.location.origin}/status`)//, {headers : { 'Content-Type': 'application/json','Accept': 'application/json'}})
                 .then(response => response.json())
