@@ -2,7 +2,6 @@
   ESP32-CAM CubeSat (ESP32 library V.1.0.6 required)
   cubesat-esp32.ino (requires app_httpd.cpp)
   Based upon Espressif ESP32CAM Examples
-  Uses TBA6612FNG H-Bridge Controller
   
 */
 
@@ -15,7 +14,7 @@
 #include "Wire.h"
 #include "MPU9250/MPU9250.h"
 #include <Adafruit_GFX.h> // Requires Adafruit GFX library
-#include <Adafruit_SSD1306.h> // requires Adafruit SSD1306 library
+#include <Adafruit_SSD1306.h> // Requires Adafruit SSD1306 library
 
 // Setup WiFi Access Point Credentials
 const char* ssid = "Anson iPhone"; //"chao"; //"wang";
@@ -117,6 +116,9 @@ void setup() {
   ledcSetup(LED_CHN, PWM_FREQ, PWM_RES);
   ledcAttachPin(BUILDIN_LED_PIN, LED_CHN);
 
+  // set up pin for triggering WIFI Configuration 
+  pinMode(WIFI_CONF_TRIGGER, INPUT_PULLUP);
+
   WiFi.begin(ssid, password);
   WiFi.setSleep(false);
 
@@ -179,6 +181,10 @@ void setup() {
 
 void loop() {
   unsigned long cur_t = millis();
+
+  if (digitalRead(WIFI_CONF_TRIGGER) == LOW){
+    Serial.println("Button_LOW");
+  }
 
   if (cur_t - slave_prev_t >= slave_talk_time) {
     slave_prev_t = cur_t;
