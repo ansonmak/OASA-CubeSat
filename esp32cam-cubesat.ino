@@ -1,8 +1,13 @@
 /*
   ESP32-CAM CubeSat (ESP32 library V.1.0.6 required)
-  cubesat-esp32.ino (requires app_httpd.cpp)
+  cubesat-esp32.ino
   Based upon Espressif ESP32CAM Examples
   
+  ESP32 Library Version 1.0.6
+  Library Requirement:
+  - Adafruit GFX library
+  - Adafruit SSD1306 library
+  - Custom MPU9520 Library
 */
 
 #include "esp_wifi.h"

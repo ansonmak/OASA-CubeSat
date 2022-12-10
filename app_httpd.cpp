@@ -1,8 +1,6 @@
 /*
   ESP32-CAM CubeSat
-  app_httpd.cpp (require);cubesat-esp32.ino)
-  Based upon Espressif ESP32CAM Examples
-  Uses TBA6612FNG H-Bridge Controller
+  app_httpd.cpp
   
 */
 
