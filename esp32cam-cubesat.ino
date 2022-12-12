@@ -5,6 +5,7 @@
   
   ESP32 Library Version 1.0.6
   Library Requirement:
+  - WiFi Manager by Tzapu
   - Adafruit GFX library
   - Adafruit SSD1306 library
   - Custom MPU9520 Library
@@ -13,17 +14,23 @@
 #include "esp_wifi.h"
 #include "esp_camera.h"
 #include <WiFi.h>
+#include <WiFiManager.h>
 #include "esp32cam_pins.h"
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 #include "Wire.h"
-#include "MPU9250/MPU9250.h"
+// #include "MPU9250/MPU9250.h"
 #include <Adafruit_GFX.h> // Requires Adafruit GFX library
 #include <Adafruit_SSD1306.h> // Requires Adafruit SSD1306 library
 
+// AP Credentials
+const String CUBESAT_ID = "000";
+const String AP_SSID = "CubeSat" + CUBESAT_ID;
+const String AP_PW = "cubesat"+ CUBESAT_ID;
+
 // Setup WiFi Access Point Credentials
-const char* ssid = "Anson iPhone"; //"chao"; //"wang";
-const char* password = "ansonmak"; //"9C9fIfrw"; //"groupwang";
+const char* ssid = "********";
+const char* password = "********";
 
 unsigned long slave_prev_t = 0;
 unsigned long slave_talk_time = 100; // time interval get data from slave
@@ -53,7 +60,7 @@ extern bool is_deploy;
 extern byte motor_spd;
 extern bool motor_dir;
 
-MPU9250 IMU;
+// MPU9250 IMU;
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -116,20 +123,52 @@ void setup() {
   s->set_vflip(s, 1);
   s->set_hmirror(s, 1);
   s->set_quality(s, 35);
+  
 
-  // set up pin for buildin led
+  // Set up pin for buildin led
   ledcSetup(LED_CHN, PWM_FREQ, PWM_RES);
   ledcAttachPin(BUILDIN_LED_PIN, LED_CHN);
 
-  // set up pin for triggering WIFI Configuration 
+  // Set up pin for triggering WIFI Configuration 
   pinMode(WIFI_CONF_TRIGGER, INPUT_PULLUP);
 
-  WiFi.begin(ssid, password);
+  // Set up I2C
+  Wire.begin(I2C_SDA, I2C_SCL);
+  
+  // Set up OLED SSD1306 Connection
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+  delay(100);
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  display.println("Searching WiFi...");
+  display.display(); 
+  delay(1000);
+
+  // WiFi.begin(ssid, password);
+
+  WiFiManager wfm;
+  // wfm.resetSettings(); // erase saved credentials
+  wfm.setAPCallback(configModeCallback); // call configModeCallback() when entered config WiFi mode
+  if(!wfm.autoConnect(AP_SSID.c_str(),AP_PW.c_str())) {
+      Serial.println("Failed to connect");
+      // ESP.restart();
+  }
   WiFi.setSleep(false);
+  
+  display.println("Saved SSID Found");
+  display.print("WiFi Connecting");
+  display.display(); 
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    display.print(".");
+    display.display(); 
     led_blink();
   }
   Serial.println("");
@@ -142,24 +181,14 @@ void setup() {
 
   // flash led
   led_multi_blink(5);
-
-  // setup I2C
-  Wire.begin(I2C_SDA, I2C_SCL);
-  slave_prev_t = millis();
-
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;);
-  }
-  delay(500);
+  
+  // display connection message
   display.clearDisplay();
-
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 10);
-  // Display static text
-  display.println("WiFi Connected!");
-  display.println("IP:");
+  display.setCursor(0, 0);
+  display.println("Connected to: ");
+  display.println(WiFi.SSID());
+  display.println("");
+  display.println("Control Panel IP:");
   display.println(WiFi.localIP());
   display.display(); 
 
@@ -182,6 +211,8 @@ void setup() {
   // IMU.calibrateMag();
   // led_multi_blink(5);
   // Serial.println("Calibration done.");
+
+  slave_prev_t = millis();
 }
 
 void loop() {
@@ -265,4 +296,14 @@ float mapfloat(float x, float in_min, float in_max, float out_min, float out_max
   if (x < in_min) return out_min;
   else if (x > in_max) return out_max;
   else return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void configModeCallback(WiFiManager *myWiFiManager) {
+  display.println("SSID found");
+  display.println("Entered config mode");
+  display.println("Configure via AP:");
+  display.println(myWiFiManager->getConfigPortalSSID());
+  display.println("With Password:");
+  display.println(AP_PW);
+  display.display();
 }
