@@ -136,7 +136,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             }
             .button2 {background-color: #008CBA; width: 130px;} /* Blue */
             .button3 {background-color: #f44336; width: 100px;} /* Red */ 
-            .button4 {background-color: #e7e7e7; color: black; width: 120px;} /* Gray */ 
+            .button4 {background-color: #e7e7e7; color: black; width: fit-content;} /* Gray */ 
             .button5 {background-color: #555555; width: 100px;} /* Black */
             .button6 {visibility: hidden; width: 100px;} /* Black */
             .button7 {width: 130px;} /* Black */
@@ -283,15 +283,15 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             .image-container {
                 position: absolute;
                 top: 10px;
-                left: 55%;
+                left: 40%;
                 /* margin-right: -50%;
                 transform: translate(-50%, -50%);
                 min-width: 160px; */
             }
             .control-container {
                 position: relative;
-                top: 100px;
-                left: 15%;
+                top: 80px;
+                left: 40%;
                 /* margin-right: -50%;
                 transform: translate(-50%, -50%); */
             }
@@ -299,7 +299,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 position: relative;
                 top: 200px;
                 right: 50%;
-                width: 400px;
+                width: fit-content;
                 /* margin-left: -50%;
                 transform: translate(-50%, -50%); */
             }
@@ -419,26 +419,29 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
 
             <section id="buttons">
                 <div id="controls" class="control-container">
-                  <table>
-                  <tr><td align="center"><button class="button button6" id="get-still">Image</button></td><td align="center"><button class="button button7" id="toggle-stream">Start Stream</button></td><td align="center"><button class="button button2" id="rotate-stream" onclick="rotateStream()">Rotate Stream</button></td><td align="center"><button class="button button4" id="deploy" onclick="fetch(document.location.origin+'/control?var=deploy&val=0');">Deploy</button></td></tr>
-                  </table>
+                    <table>
+                        <tr><td align="center"><button class="button button7" id="toggle-stream">Start Stream</button></td><td align="center"><button class="button button2" id="rotate-stream" onclick="rotateStream()">Rotate Stream</button></td><td align="center"><button class="button button6" id="get-still">Image</button></td></tr>
+                        <tr><td align="center"><button class="button button4" id="deploy" onclick="fetch(document.location.origin+'/control?var=deploy&val=0');">Deploy</button></td><td align="center"><button class="button button4" id="flash_led">Flash LED</button></td><td align="center"><button class="button button4" id="solar_tracking">Solar Tracking</button></td></tr>
+                    </table>
                 </div>
                 <div id="sliders" class="slider-container">
-                  Motor Speed: <output id="motor_spd">0</output>%
-                  <br>
-                  <input type="range" id="speed" min="-100" max="100" value="0" oninput="try{fetch(document.location.origin+'/control?var=speed&val='+this.value);motor_spd.value = this.value;}catch(e){}">
-                  <br>
-                  <!-- LED Brightness: <output id="led_bright">0</output>%
-                  <br>
-                  <input type="range" id="led" min="0" max="100" value="0" oninput="try{fetch(document.location.origin+'/control?var=led&val='+this.value);led_bright.value = this.value;}catch(e){}">
-                  <br> -->
                   Video Size:
                   <br>
-                  <input type="range" id="framesize" min="3" max="7" value="3" oninput="try{fetch(document.location.origin+'/control?var=framesize&val='+this.value);}catch(e){}">
+                  <input type="range" id="framesize" min="3" max="7" value="3" style="width: 400px" oninput="try{fetch(document.location.origin+'/control?var=framesize&val='+this.value);}catch(e){}">
                   <br>
                   Video Quality: 
                   <br>
-                  <input type="range" id="quality" min="10" max="63" value="10" oninput="try{fetch(document.location.origin+'/control?var=quality&val='+this.value);}catch(e){}">
+                  <input type="range" id="quality" min="10" max="63" value="10" style="width: 400px" oninput="try{fetch(document.location.origin+'/control?var=quality&val='+this.value);}catch(e){}">
+                  <br>
+                  Motor Speed: <output id="motor_spd">0</output>%
+                  <br>
+                  <input type="range" id="speed" min="-100" max="100" value="0" style="width: 400px" oninput="try{fetch(document.location.origin+'/control?var=speed&val='+this.value);motor_spd.value = this.value;}catch(e){}">
+                  <button class="button button4" id="stop_motor" onclick="try{fetch(document.location.origin+'/control?var=speed&val=0');motor_spd.value = 0;speed.value = 0;}catch(e){}">Stop Motor</button>
+                  <br>
+                  <!-- LED Brightness: <output id="led_bright">0</output>%
+                  <br>
+                  <input type="range" id="led" min="0" max="100" value="0" style="width: 400px" oninput="try{fetch(document.location.origin+'/control?var=led&val='+this.value);led_bright.value = this.value;}catch(e){}">
+                  <br> -->
                 </div>
             </section>         
         </section>

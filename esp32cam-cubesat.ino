@@ -3,7 +3,7 @@
   cubesat-esp32.ino
   Based upon Espressif ESP32CAM Examples
   
-  ESP32 Library Version 1.0.6
+  ESP32 Board Library Version 1.0.6
   Library Requirement:
   - WiFi Manager by Tzapu, tablatronix
   - Adafruit GFX library
