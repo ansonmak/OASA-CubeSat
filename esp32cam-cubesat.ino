@@ -5,7 +5,7 @@
   
   ESP32 Library Version 1.0.6
   Library Requirement:
-  - WiFi Manager by Tzapu
+  - WiFi Manager by Tzapu, tablatronix
   - Adafruit GFX library
   - Adafruit SSD1306 library
   - Custom MPU9520 Library
@@ -130,7 +130,7 @@ void setup() {
   ledcAttachPin(BUILDIN_LED_PIN, LED_CHN);
 
   // Set up pin for triggering WIFI Configuration 
-  pinMode(WIFI_CONF_TRIGGER, INPUT_PULLUP);
+  pinMode(WIFI_RESET_TRIGGER, INPUT_PULLUP);
 
   // Set up I2C
   Wire.begin(I2C_SDA, I2C_SCL);
@@ -152,7 +152,8 @@ void setup() {
   // WiFi.begin(ssid, password);
 
   WiFiManager wfm;
-  // wfm.resetSettings(); // erase saved credentials
+  if (digitalRead(WIFI_RESET_TRIGGER) == LOW)
+    wfm.resetSettings(); // erase saved credentials
   wfm.setAPCallback(configModeCallback); // call configModeCallback() when entered config WiFi mode
   if(!wfm.autoConnect(AP_SSID.c_str(),AP_PW.c_str())) {
       Serial.println("Failed to connect");
@@ -217,10 +218,6 @@ void setup() {
 
 void loop() {
   unsigned long cur_t = millis();
-
-  if (digitalRead(WIFI_CONF_TRIGGER) == LOW){
-    Serial.println("Button_LOW");
-  }
 
   if (cur_t - slave_prev_t >= slave_talk_time) {
     slave_prev_t = cur_t;
@@ -299,7 +296,11 @@ float mapfloat(float x, float in_min, float in_max, float out_min, float out_max
 }
 
 void configModeCallback(WiFiManager *myWiFiManager) {
-  display.println("SSID found");
+  if (digitalRead(WIFI_RESET_TRIGGER) == LOW){
+    display.println("Resetting SSID");
+  } else {
+    display.println("SSID not found");
+  }
   display.println("Entered config mode");
   display.println("Configure via AP:");
   display.println(myWiFiManager->getConfigPortalSSID());
