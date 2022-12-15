@@ -13,9 +13,9 @@
 #define MOTOR_IN2_PIN          6
 
 unsigned long prev_t = 0;
-unsigned long control_time  = 50;  // run every ms 
+unsigned long control_time = 50;  // run every ms 
 unsigned long solenoid_t = 0;
-unsigned long solenoid_timer = 100; //500 // solenoid active duration
+const unsigned long solenoid_timer = 200; //500 // solenoid active duration
 bool start_solenoid_timer = false;
 
 byte battery_voltage_sensor = 0;
@@ -26,6 +26,7 @@ byte light_sensor4 = 0;
 bool motor_dir = true;
 int motor_spd = 0;
 bool is_deploy = false;
+bool is_light_track = false;
 
 void setup() {
   Serial.begin(115200);
@@ -89,6 +90,10 @@ void loop() {
       }
     } 
 
+    if (is_light_track) {
+      //TODO: function for students to implement
+    }
+
   }
 }
 
@@ -107,6 +112,11 @@ void receiveEvent(int howMany) {
       case '!':
         Serial.println("Deploy!");
         is_deploy = true;
+        break;
+      case '^':
+        is_light_track = !is_light_track;
+        Serial.print("Light tracking: ");
+        Serial.println(is_light_track ? "ON" : "OFF");
         break;
       case '+':
         motor_dir = true;

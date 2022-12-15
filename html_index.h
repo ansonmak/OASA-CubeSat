@@ -421,7 +421,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 <div id="controls" class="control-container">
                     <table>
                         <tr><td align="center"><button class="button button7" id="toggle-stream">Start Stream</button></td><td align="center"><button class="button button2" id="rotate-stream" onclick="rotateStream()">Rotate Stream</button></td><td align="center"><button class="button button6" id="get-still">Image</button></td></tr>
-                        <tr><td align="center"><button class="button button4" id="deploy" onclick="fetch(document.location.origin+'/control?var=deploy&val=0');">Deploy</button></td><td align="center"><button class="button button4" id="flash_led">Flash LED</button></td><td align="center"><button class="button button4" id="solar_tracking">Solar Tracking</button></td></tr>
+                        <tr><td align="center"><button class="button button4" id="deploy" onclick="fetch(document.location.origin+'/control?var=deploy&val=0');">Deploy</button></td><td align="center"><button class="button button4" id="flash_led" onclick="fetch(document.location.origin+'/control?var=flash&val=0');">Flash LED</button></td><td align="center"><button class="button button4" id="light_tracking" onclick="fetch(document.location.origin+'/control?var=light_track&val=0');">Light Tracking</button></td></tr>
                     </table>
                 </div>
                 <div id="sliders" class="slider-container">

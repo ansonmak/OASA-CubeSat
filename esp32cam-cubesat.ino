@@ -57,8 +57,13 @@ float imu_MagZ = 0.0;
 // data send to slave
 extern bool send_slave;
 extern bool is_deploy;
+extern bool set_light_track;
 extern byte motor_spd;
 extern bool motor_dir;
+extern bool is_flash;
+bool start_led_flash_timer = false;
+unsigned long led_flash_t = 0;
+const unsigned long led_flash_timer = 500; //ms
 
 // MPU9250 IMU;
 
@@ -155,7 +160,8 @@ void setup() {
   if (digitalRead(WIFI_RESET_TRIGGER) == LOW)
     wfm.resetSettings(); // erase saved credentials
   wfm.setAPCallback(configModeCallback); // call configModeCallback() when entered config WiFi mode
-  if(!wfm.autoConnect(AP_SSID.c_str(),AP_PW.c_str())) {
+  // wfm.autoConnect(AP_SSID.c_str(),AP_PW.c_str()) //use define AP name and password
+  if(!wfm.autoConnect()) { // auto generated AP name from chipID
       Serial.println("Failed to connect");
       // ESP.restart();
   }
@@ -244,6 +250,10 @@ void loop() {
         Wire.write('!');
         is_deploy = false;
       }
+      if (set_light_track) {
+        Wire.write('^');
+        set_light_track = false;
+      }
       Wire.write(motor_dir ? '+' : '-');
       Wire.write(motor_spd);
       Wire.endTransmission();
@@ -274,10 +284,25 @@ void loop() {
     //   // Serial.println(imu_yaw);
     // }
   }
+
+  if (is_flash) {
+    ledcWrite(LED_CHN,1);
+    if (!start_led_flash_timer) {
+        led_flash_t = cur_t;
+        start_led_flash_timer = true;
+      }
+      if (start_led_flash_timer && cur_t - led_flash_t >= led_flash_timer) {
+        ledcWrite(LED_CHN,0);
+        is_flash = false;
+        start_led_flash_timer = false;
+    }
+  }
+
+
 }
 
 void led_blink() {
-  ledcWrite(LED_CHN,1);  
+  ledcWrite(LED_CHN,1);
   delay(50);
   ledcWrite(LED_CHN,0);
   delay(50); 
@@ -296,7 +321,7 @@ float mapfloat(float x, float in_min, float in_max, float out_min, float out_max
 }
 
 void configModeCallback(WiFiManager *myWiFiManager) {
-  if (digitalRead(WIFI_RESET_TRIGGER) == LOW){
+  if (digitalRead(WIFI_RESET_TRIGGER) == LOW) {
     display.println("Resetting SSID");
   } else {
     display.println("SSID not found");
@@ -304,7 +329,7 @@ void configModeCallback(WiFiManager *myWiFiManager) {
   display.println("Entered config mode");
   display.println("Configure via AP:");
   display.println(myWiFiManager->getConfigPortalSSID());
-  display.println("With Password:");
-  display.println(AP_PW);
+  display.println("With IP:");
+  display.println("192.168.4.1");
   display.display();
 }

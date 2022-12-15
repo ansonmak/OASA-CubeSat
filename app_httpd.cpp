@@ -17,6 +17,8 @@
 // variables send to slave
 bool send_slave = false;
 bool is_deploy = false;
+bool is_flash = false;
+bool set_light_track = false;
 byte motor_spd = 0;
 bool motor_dir = true;
 
@@ -248,9 +250,18 @@ static esp_err_t cmd_handler(httpd_req_t *req)
   } else if (!strcmp(variable, "quality")) res = s->set_quality(s, map(val,10,63,63,10));
   else if (!strcmp(variable, "led")) ledcWrite(LED_CHN, map(val,0,100,0,255));
   else if (!strcmp(variable, "deploy")){
-    is_deploy = true;
     send_slave = true;
+    is_deploy = true;
     Serial.println("Deploy!");
+  }
+  else if (!strcmp(variable, "flash")) {
+    is_flash = true;
+    Serial.println("Flash!");
+  }
+  else if (!strcmp(variable, "light_track")) {
+    send_slave = true;
+    set_light_track = true;
+    Serial.println("Set tracking!");
   }
   else if (!strcmp(variable, "speed")) {
     int spd = map(val,-100,100,-255,255);
