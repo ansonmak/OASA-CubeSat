@@ -39,6 +39,9 @@ unsigned long imu_talk_time = 20;
 // received data from slave
 int battery_voltage_sensor = 0;
 float battery_voltage = 0.0;
+float R1 = 100; //(k ohm) Resistance of R1
+float R2 = 100; //(k ohm) Resistance of R2
+float voltage_divider_constant = (R1+R2)/R2; // V_battery  = (R1+R2)/R2 * V_Measure 
 const float voltage_offset = 0.15;
 const float battery_min_voltage = 3.2;
 const float battery_max_voltage = 4.1;
@@ -241,7 +244,7 @@ void loop() {
     light_sensor2 = int(receive_byte[2]);
     light_sensor3 = int(receive_byte[3]);
     light_sensor4 = int(receive_byte[4]);
-    battery_voltage = float(battery_voltage_sensor)/255 * 5.0 * 2.0 + voltage_offset;
+    battery_voltage = float(battery_voltage_sensor)/255 * 5.0 * voltage_divider_constant + voltage_offset;
     battery_percentage = mapfloat(battery_voltage, battery_min_voltage, battery_max_voltage, 0, 100);
 
     if (send_slave) {
