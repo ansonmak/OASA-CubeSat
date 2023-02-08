@@ -1,1 +1,1 @@
-# OASA-cubesat
+# OASA-CubeSat
