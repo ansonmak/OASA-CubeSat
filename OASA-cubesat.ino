@@ -1,7 +1,7 @@
 /*
-  ESP32-CAM CubeSat (ESP32 library V.1.0.6 required)
-  cubesat-esp32.ino
-  Based upon Espressif ESP32CAM Examples
+  OASA CubeSat with ESP32-CAM(ESP32 library V.1.0.6 required)
+  Based upon Espressif ESP32-CAM Examples
+  Author: Anson Mak
   
   ESP32 Board Library Version 1.0.6
   Library Requirement:
