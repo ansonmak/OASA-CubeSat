@@ -21,7 +21,7 @@
 #define BUILDIN_LED_PIN     4
 #define I2C_SDA            14 //I2C connect to 2 will cause flash fails
 #define I2C_SCL            15
-#define WIFI_RESET_TRIGGER  12 // Trigger pin for WIFI Configuration
+#define WIFI_RESET_TRIGGER 12 // Trigger pin for WIFI Configuration
 
 // I2C address
 #define SLAVE_ADDR          8

@@ -368,11 +368,6 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 background-color: #00AA00;
                 white-space: nowrap;
             }
-            .imu-container {
-                position: relative;
-                top: 60px;
-                left: 20%;
-            }
         </style>
     </head>
     <body onload="reloadData()">
@@ -402,20 +397,6 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 <br>
                 <div class="meter" id = "light4"></div>
             </div>
-
-            <!-- <div id='IMU', class='imu-container'>
-                Roll: <span id = "roll"></span>
-                <br>
-                Pitch: <span id = "pitch"></span>
-                <br>
-                Yaw: <span id = "yaw"></span>
-                <br>
-                MagX: <span id = "Mx"></span>
-                <br>
-                MagY: <span id = "My"></span>
-                <br>
-                MagZ: <span id = "Mz"></span>
-            </div> -->
 
             <section id="buttons">
                 <div id="controls" class="control-container">
@@ -506,20 +487,6 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                     green = light4/255*max_col_val;
                     color = "rgb("+red+","+green+",0)";
                     document.getElementById("light4").style.backgroundColor=color
-
-                    //imu
-                    // roll = data.roll
-                    // document.getElementById("roll").innerHTML=roll
-                    // pitch = data.pitch
-                    // document.getElementById("pitch").innerHTML=pitch
-                    // yaw = data.yaw
-                    // document.getElementById("yaw").innerHTML=yaw
-                    // MagX = data.MagX
-                    // document.getElementById("Mx").innerHTML=MagX
-                    // MagY = data.MagY
-                    // document.getElementById("My").innerHTML=MagY
-                    // MagZ = data.MagZ
-                    // document.getElementById("Mz").innerHTML=MagZ
 
                 })
                 setTimeout(reloadData,50);

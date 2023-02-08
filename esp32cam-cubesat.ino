@@ -8,7 +8,6 @@
   - WiFi Manager by Tzapu, tablatronix
   - Adafruit GFX library
   - Adafruit SSD1306 library
-  - Custom MPU9520 Library
 */
 
 #include "esp_wifi.h"
@@ -19,23 +18,20 @@
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 #include "Wire.h"
-// #include "MPU9250/MPU9250.h"
 #include <Adafruit_GFX.h> // Requires Adafruit GFX library
 #include <Adafruit_SSD1306.h> // Requires Adafruit SSD1306 library
 
 // AP Credentials
-const String CUBESAT_ID = "000";
-const String AP_SSID = "CubeSat" + CUBESAT_ID;
-const String AP_PW = "cubesat"+ CUBESAT_ID;
+// const String CUBESAT_ID = "000";
+// const String AP_SSID = "CubeSat" + CUBESAT_ID;
+// const String AP_PW = "cubesat"+ CUBESAT_ID;
 
 // Setup WiFi Access Point Credentials
-const char* ssid = "********";
-const char* password = "********";
+// const char* ssid = "********";
+// const char* password = "********";
 
 unsigned long slave_prev_t = 0;
 unsigned long slave_talk_time = 100; // time interval get data from slave
-unsigned long imu_prev_t = 0;
-unsigned long imu_talk_time = 20;
 // received data from slave
 int battery_voltage_sensor = 0;
 float battery_voltage = 0.0;
@@ -50,12 +46,6 @@ int light_sensor1 = 0;
 int light_sensor2 = 0;
 int light_sensor3 = 0;
 int light_sensor4 = 0;
-float imu_roll = 0.0;
-float imu_pitch = 0.0;
-float imu_yaw = 0.0;
-float imu_MagX = 0.0;
-float imu_MagY = 0.0;
-float imu_MagZ = 0.0;
 
 // data send to slave
 extern bool send_slave;
@@ -67,8 +57,6 @@ extern bool is_flash;
 bool start_led_flash_timer = false;
 unsigned long led_flash_t = 0;
 const unsigned long led_flash_timer = 500; //ms
-
-// MPU9250 IMU;
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -202,26 +190,6 @@ void setup() {
   display.println(WiFi.localIP());
   display.display(); 
 
-  // MPU 9250 i2c connection
-  // if (!IMU.setup(0x68)) {
-  //     while (1) {
-  //         Serial.println("MPU connection failed. Please check your connection with connection_check example.");
-  //         delay(3000);
-  //     }
-  // }
-  // delay(5000);
-  // IMU.setMagneticDeclination(-3.26); // Hong Kong
-  // Serial.println("Calibrating Accelerometer Gyroscope...");
-  // led_blink(); 
-  // delay(3000);
-  // IMU.calibrateAccelGyro();
-  // Serial.println("Calibrating Magentometer...");
-  // led_blink();
-  // delay(3000);
-  // IMU.calibrateMag();
-  // led_multi_blink(5);
-  // Serial.println("Calibration done.");
-
   slave_prev_t = millis();
 }
 
@@ -262,30 +230,6 @@ void loop() {
       Wire.endTransmission();
       send_slave = false;
     }
-  }
-
-  if (cur_t - imu_prev_t >= imu_talk_time) {
-    imu_prev_t = cur_t;
-    // if (IMU.update()) {
-    //   // Serial.print(IMU.getAccX()); Serial.print(", ");
-    //   // Serial.print(IMU.getAccY()); Serial.print(", ");
-    //   // Serial.print(IMU.getAccZ()); Serial.print(", ");
-    //   // Serial.print(IMU.getGyroX()); Serial.print(", ");
-    //   // Serial.print(IMU.getGyroY()); Serial.print(", ");
-    //   // Serial.print(IMU.getGyroZ()); Serial.print(", ");
-    //   // Serial.print(IMU.getMagX()); Serial.print(", ");
-    //   // Serial.print(IMU.getMagY()); Serial.print(", ");
-    //   // Serial.println(IMU.getMagZ());
-    //   imu_roll = IMU.getRoll();
-    //   imu_pitch = IMU.getPitch();
-    //   imu_yaw = IMU.getYaw();
-    //   imu_MagX = IMU.getMagX();
-    //   imu_MagY = IMU.getMagY();
-    //   imu_MagZ = IMU.getMagZ();
-    //   // Serial.print(imu_roll); Serial.print(", ");
-    //   // Serial.print(imu_pitch); Serial.print(", ");
-    //   // Serial.println(imu_yaw);
-    // }
   }
 
   if (is_flash) {
