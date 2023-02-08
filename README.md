@@ -1,1 +1,1 @@
-# esp32cam-cubesat
+# OASA-cubesat
