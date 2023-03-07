@@ -1,7 +1,7 @@
 # OASA-CubeSat
 <p align = "center">
-<img src="Figures/CAD_model.png" height="250"> 
-<img src="Figures/Assembled_model.jpg" height="250"> 
+<img src="Figures/CAD_model.png" height="225"> 
+<img src="Figures/Assembled_model.jpg" height="225"> 
 </p>
 
 ## 1. Overview
