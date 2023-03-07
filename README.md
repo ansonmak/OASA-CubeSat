@@ -11,7 +11,7 @@ This repository contains the instructions of how to assemble the CubeSat, guidel
 
 ## 2. Assembly
 Before assembling the CubeSat, check if anything in the box is missing with the list below: 
-- [OASA-CubeSat Kits Checklist](Docs/Checklist.md)
+- [OASA-CubeSat Kit Checklist](Docs/Checklist.md)
 
 To assemble the CubeSat, follow the instructions below:
 - [CubeSat Assembly Instruction](Docs/Assembly.md)

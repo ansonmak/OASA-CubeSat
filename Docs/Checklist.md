@@ -1,1 +1,1 @@
-# CubeSat Components Checklist
+# CubeSat Kit Checklist
