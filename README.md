@@ -10,7 +10,7 @@ OASA-CubeSat is an educational satellite designed to imitate the stucture and fu
 This repository contains the instructions of how to assemble the CubeSat, guidelines of how to upload the included source code to the CubeSat, and the STL files of the 3D printed parts for replacement of the broken parts or customization.  
 
 ## 2. Assembly
-Before assembling the CubeSat, check if anything in the box is missing with the list below: 
+Before assembling the CubeSat, check if anything in the kit is missing with the list below: 
 - [OASA-CubeSat Kit Checklist](Docs/Checklist.md)
 
 To assemble the CubeSat, follow the instructions below:
@@ -19,7 +19,7 @@ To assemble the CubeSat, follow the instructions below:
 For printing the 3D printed parts with your printer, check out the folder, [STL](STL/), for the STL files.
 
 ## 3. Software
-The source code for the CubeSat is located at the folder: [Software](Software/). Follow the tutorial below to see how to upload the software to the CubeSat:
+The source code of this CubeSat is located in the folder: [Software](Software/). Follow the tutorial below to see how to upload the software to the CubeSat:
 - [Environment Setup and Software Upload](Docs/Software.md)
 
 ## 4. Copyright
