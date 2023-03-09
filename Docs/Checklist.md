@@ -1,13 +1,13 @@
 # CubeSat Kit Checklist
 - ## 3D Printed Parts
 <p align = "center">
-<img src="../Figures/3DP_PartList.png" height="width=400"> 
+<img src="../Figures/3DP_PartList.png" height="800"> 
 </p>
 
 - ## Components Box
     - Components of each cell in the box:
 <p align = "center">
-<img src="../Figures/ComponentBoxList.png" height="width=400"> 
+<img src="../Figures/ComponentBoxList.png" height="800"> 
 </p>
 
 - ## Electronics
