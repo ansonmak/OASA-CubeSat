@@ -1,14 +1,11 @@
 # CubeSat Kit Checklist
 - ## 3D Printed Parts
-<p align = "center">
-<img src="../Figures/3DP_PartList.png" height="800"> 
-</p>
+![](../Figures/3DP_PartList.png)
 
 - ## Components Box
     - Components of each cell in the box:
-<p align = "center">
-<img src="../Figures/ComponentBoxList.png" height="800"> 
-</p>
+
+![](../Figures/ComponentBoxList.png)
 
 - ## Electronics
     - ### Module 1: Including ESP32-CAM, Arduino Nano, OLED Display, and ESP32 Programmer
