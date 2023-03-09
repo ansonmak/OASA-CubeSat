@@ -5,10 +5,13 @@
 </p>
 
 - ## Components Box
-    - The components of each cell in the box:
+    - Components of each cell in the box:
+<p align = "center">
+<img src="../Figures/ComponentBoxList.png" height="width=400"> 
+</p>
 
 - ## Electronics
-    - ### Module 1: Including ESP32-CAM, Arduino Nano, OLED Display, and ESP32 programmer
+    - ### Module 1: Including ESP32-CAM, Arduino Nano, OLED Display, and ESP32 Programmer
     - ### Module 2
     - ### Module 3
 
