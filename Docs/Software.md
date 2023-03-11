@@ -33,27 +33,27 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 ## 4. Upload Code to ESP32-CAM
 **4.1** Open the file [`ESP32-CAM.ino`](../Software/ESP32-CAM/ESP32-CAM.ino) in the folder [`Software/ESP32-CAM`](../Software/ESP32-CAM/) with Arduino IDE.
 
-**4.2** Turn off the CubeSat by pushing the power switch upward and turn the CubeSat into upload mode by sliding the switch to the upload side.  
+**4.2** Turn off the CubeSat by pushing the power switch upward and turn the CubeSat into **upload mode** by sliding the switch to the side of **Upload**.  
 *Figure of CubeSat power switch and upload switch*
 
-**4.3** Plug in the mini USB wire to the ESP32 Programmer (Red Module) and connect with your PC.  
+**4.3** Plug in the mini USB wire to the ESP32 Programmer (Red Module) and connect to your PC.  
 *Figure of mini usb wire plug into FTDI programmer*
 
 **4.4** In your Arduino IDE, go to **Tools** > **Board** > **esp32** > select **ESP32 Wrover Module**.  
-<img src="../Figures/Software_Tutorial/4.4.png" width="500">
+<img src="../Figures/Software_Tutorial/4.4.png" width="700">
 
 **4.5** In **Tools**, select the upload configuration as follows:
-- Port: COMX (Try different COM port one by one if multiple COM ports appear)
-- Core Debug Level: None
-- Flash Frequency: 80MHz
-- Flash Mode: QIO
-- Partition Scheme: Huge App (3MB No OTA)
-- Upload Speed: 921600
+- **Port**: COMX (Try different COM port one by one if multiple COM ports appear)
+- **Core Debug Level**: None
+- **Flash Frequency**: 80MHz
+- **Flash Mode**: QIO
+- **Partition Scheme**: Huge App (3MB No OTA)
+- **Upload Speed**: 921600
 
 **4.6** Click the **Upload** arrow icon on the top left corner to start compile and upload the code to ESP32-CAM.  
 <img src="../Figures/Software_Tutorial/4.6.png" width="500">
 
-During uploading, the message *Writing at 0x0000000... (xx%)* in the **Output** window at the botton of Arduino IDE.
+During uploading, the message *Writing at 0x0000000... (xx%)* will be shown up in the **Output** window at the botton of Arduino IDE.  ***Please do not unplug the USB wire during this process.***
 
 If the message *Leaving... Hard resetting via RIS Pin...* shows up, the upload is completed and the Mini USB wire can be unplugged.
 
