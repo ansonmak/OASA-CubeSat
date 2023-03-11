@@ -53,9 +53,10 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 **4.6** Click the **Upload** arrow icon on the top left corner to start compile and upload the code to ESP32-CAM.  
 <img src="../Figures/Software_Tutorial/4.6.png" width="500">
 
-During uploading, the message *Writing at 0x0000000... (xx%)* will be shown up in the **Output** window at the botton of Arduino IDE.  ***Please do not unplug the USB wire during this process.***
+During uploading, the message ***Writing at 0x0000000... (xx%)*** will be shown up in the **Output** window at the botton of Arduino IDE.  
+***Please do not unplug the USB wire during this process.***
 
-If the message *Leaving... Hard resetting via RIS Pin...* shows up, the upload is completed and the Mini USB wire can be unplugged.
+If the message ***Leaving... Hard resetting via RIS Pin...*** shows up, the upload is completed and the Mini USB wire can be unplugged.
 
 ## 5. Upload Code to Arduino Nano
 
