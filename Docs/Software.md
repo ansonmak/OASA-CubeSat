@@ -16,7 +16,6 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 ```
 
 <img src="../Figures/Software_Tutorial/2.2a.png" width="500">
-
 <img src="../Figures/Software_Tutorial/2.2b.png" width="500">
 
 **2.3** In **Tools** > **Board** > **Boards Manager** or click the **Boards Mananger** icon on the left bar. Then, search **ESP32** and install with **version 1.0.6**.
