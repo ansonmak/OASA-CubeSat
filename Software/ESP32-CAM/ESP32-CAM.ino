@@ -5,9 +5,9 @@
   
   ESP32 Board Library Version 1.0.6
   Library Requirement:
-  - WiFi Manager by Tzapu, tablatronix
-  - Adafruit GFX library
+  - WiFiManager by Tzapu, tablatronix
   - Adafruit SSD1306 library
+  - Adafruit GFX library
 */
 
 #include "esp_wifi.h"
