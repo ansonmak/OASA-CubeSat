@@ -34,7 +34,15 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 <img src="../Figures/Software_Tutorial/3.3.png" width="500">
 
 ## 4. Upload Code to ESP32-CAM
-**4.1** Open the file [`ESP32-CAM.ino`](../Software/ESP32-CAM/ESP32-CAM.ino) in the folder [`Software/ESP32-CAM`](../Software/ESP32-CAM/). 
+**4.1** Open the file [`ESP32-CAM.ino`](../Software/ESP32-CAM/ESP32-CAM.ino) in the folder [`Software/ESP32-CAM`](../Software/ESP32-CAM/) with Arduino IDE.
+
+**4.2** Turn off the CubeSat by pushing the power switch upward and turn the CubeSat into upload mode by sliding the switch to the upload side.
+*Figure of CubeSat power switch and upload switch*
+
+**4.3** Plug in the mini USB wire to the ESP32 Programmer (Red Module) and connect with your PC.
+*Figure of mini usb wire plug into FTDI programmer*
+
+**4.4** 
 
 ## 5. Upload Code to Arduino Nano
 

@@ -16,10 +16,10 @@ Before assembling the CubeSat, check if anything in the kit is missing with the 
 To assemble the CubeSat, follow the instructions below:
 - [CubeSat Assembly Instruction](Docs/Assembly.md)
 
-For printing the 3D printed parts with your own printer, check out the STL files in the [STL](STL/) to load the 3D models in your slicer.
+For printing the 3D printed parts with your own printer, check out the STL files in the [`STL`](STL/) to load the 3D models in your slicer.
 
 ## 3. Software
-The source code of this CubeSat is located in the folder: [Software](Software/). Follow the tutorial below to see how to upload the software and operate the CubeSat:
+The source code of this CubeSat is located in the folder: [`Software`](Software/). Follow the tutorial below to see how to upload the software and operate the CubeSat:
 - [Software Upload and CubeSat Operation](Docs/Software.md)
 
 ## 4. Copyright
