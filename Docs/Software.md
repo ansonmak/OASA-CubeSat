@@ -25,15 +25,12 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 ## 3. Install Libraries in Arduino IDE
 **3.1** In **Tools** > **Manage Libraries...** or click the **Library Manager** icon on the left bar, install the following three libraries with the latest version.
 - **WiFiManager** by *tzapu*
-
 <img src="../Figures/Software_Tutorial/3.1.png" width="500">
 
 - **Adafruit SSD1306** by *Adafruit*
-
 <img src="../Figures/Software_Tutorial/3.2.png" width="500">
 
 - **Adafruit GFX Library** by *Adafruit*
-
 <img src="../Figures/Software_Tutorial/3.3.png" width="500">
 
 ## 4. Upload Code to ESP32-CAM
