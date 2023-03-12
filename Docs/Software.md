@@ -34,10 +34,10 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 **4.1** Open the file [`ESP32-CAM.ino`](../Software/ESP32-CAM/ESP32-CAM.ino) in the folder [`Software/ESP32-CAM`](../Software/ESP32-CAM/) with Arduino IDE.
 
 **4.2** Turn off the CubeSat by pushing the power switch upward and turn the CubeSat into **upload mode** by sliding the switch to the side of **Upload**.  
-*Figure of CubeSat power switch and upload switch*
+**Figure1: CubeSat power switch off, Figure2: upload switch at upload mode**
 
 **4.3** Plug in the mini USB wire to the ESP32 Programmer (Red Module) and connect to your PC.  
-*Figure of mini usb wire plug into FTDI programmer*
+**Figure: mini usb wire plug into FTDI programmer**
 
 **4.4** In your Arduino IDE, go to **Tools** > **Board** > **esp32** > select **ESP32 Wrover Module**.  
 <img src="../Figures/Software_Tutorial/4.4.png" width="800">
@@ -53,13 +53,16 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 **4.6** Click the **Upload** arrow icon on the top left corner to start compile and upload the code to ESP32-CAM.  
 <img src="../Figures/Software_Tutorial/4.6.png" width="500">
 
-During uploading, the message ***Writing at 0x0000000... (xx%)*** will be shown up in the **Output** window at the botton of Arduino IDE.  
+During uploading, the message ***Writing at 0x00000000... (xx%)*** will be shown up in the **Output** window at the botton of Arduino IDE.  
 ***Please do not unplug the USB wire during this process.***
 
 If the message ***Leaving... Hard resetting via RIS Pin...*** shows up, the upload is completed and the Mini USB wire can be unplugged.
 
+**4.7** Switch the CubeSat back to **Program Mode** for running the uploaded program.
+**Figure: CubeSat upload switch at program mode**
+
 ## 5. Upload Code to Arduino Nano
-**5.1** Plug the Mini USB connected to your PC to the Arduino Nano.
+**5.1** Plug the Mini USB connected to your PC to Arduino Nano.
 
 **5.2** In **Tools** > **Board** > **Arduino AVR Boards** > select **Arduino Nano**.  
 In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  
@@ -70,3 +73,41 @@ In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.
 ***Done Uploading*** message will be shown if completed.
 
 ## 6. Power the CubeSat and Connect to WiFi
+**6.1** Turn on the power switch by pushing the lever downward.  
+**Figure: CubeSat power switch on**
+
+**6.2** The text ***Searching WiFi...*** will be shown on the OLED diplay and the ESP32-CAM will search for the saved WiFi credentials in the board, which is the SSID and the password of a hotspot.  
+**Figure: OLED with searching WiFi**
+
+**6.3** If the LED on the ESP32-CAM will flash multiple times, the ESP32-CAM is connected to the WiFi network and its IP adress will be shown on the display.  
+**Figure: OLED with IP address**  
+If the message ***SSID not found. Entered config mode.*** is shown on the display, the ESP32-CAM cannot found its saved WiFi network. See ***Sec. 6.5*** for how to change its WiFi configurations.
+
+**6.4** Connect your device (PC, laptop, mobile phone, or tablet) to the same WiFi network that the CubeSat is connected to. Open the browser and search with the IP address. A web page of CubeSat's control panel will be shown.  Go to ***Sec. 7*** to see how to control the CubeSat.  
+**Figure: browser with IP address and control panel**
+
+**6.5** If the saved WiFi credentials is not found, the CubeSat will turn into **Config mode** and display its SSID name on the OLED display.  
+**Figure: OLED with failed connection and SSID name**
+
+**6.6** Use any device with WiFi connectivity to search SSID name of the CubeSat.  
+**Figure: mobile phone search cubesat SSID**
+
+**6.7** After your device is connected to the CubeSat through the SSID, the **WiFi Manager** page will show up on your device. Click **configure WiFi** > select the WiFi network that you want your CubeSat to connect or type the SSID and password in the box below.  
+**Figure1 WiFi Manager page, Figure 2 type SSID in manager**
+
+**6.8** Click save afterward and close the **WiFi Manager** page on your device. Turn off power of your CubeSat and turn on again to reset. Repeat ***Sec. 6.1*** to try the new WiFi connection.
+
+## 7. Control the CubeSat Remotely with the Control Panel
+**7.1** Camera Live Stream
+
+**7.2** Solar Panel Deploy
+
+**7.3** Reaction Wheel Control
+
+**7.4** Light Sensor Readings
+
+**7.5** Battery Voltage Meter
+
+**7.6** CubeSat LED Flash
+
+**7.7** Auto Light Tracking
