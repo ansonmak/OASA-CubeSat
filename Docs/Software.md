@@ -65,7 +65,7 @@ If the message ***Leaving... Hard resetting via RIS Pin...*** shows up, the uplo
 **5.1** Plug the Mini USB connected to your PC to Arduino Nano.
 
 **5.2** In **Tools** > **Board** > **Arduino AVR Boards** > select **Arduino Nano**.  
-In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  
+In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  (If the upload failed, try different processor since the processor varies across different manufracturers.)
 <img src="../Figures/Software_Tutorial/5.2a.png" height="300">
 <img src="../Figures/Software_Tutorial/5.2b.png" height="300">
 
