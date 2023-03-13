@@ -51,17 +51,7 @@ void loop() {
     light_sensor4 = map(analogRead(LIGHT_SENSOR4_PIN),0,1023,0,255);
 
     #ifdef DRV_TB6612FGN
-    if (motor_spd == 0) {
-      digitalWrite(MOTOR_IN1_PIN, LOW);
-      digitalWrite(MOTOR_IN2_PIN, LOW);
-    } else if (motor_dir) {
-      digitalWrite(MOTOR_IN1_PIN, HIGH);
-      digitalWrite(MOTOR_IN2_PIN, LOW);
-    } else if (!motor_dir) {
-      digitalWrite(MOTOR_IN1_PIN, LOW);
-      digitalWrite(MOTOR_IN2_PIN, HIGH);
-    }
-    analogWrite(MOTOR_PWM_PIN, motor_spd);
+    set_motor(motor_spd, motor_dir);
     #else
     if (motor_spd == 0) {
       digitalWrite(MOTOR_IN1_PIN, LOW);
@@ -92,6 +82,17 @@ void loop() {
 
     if (is_light_track) {
       //TODO: function for students to implement
+      light_left = max(light_sensor1,light_sensor2); //return max of 1/2
+      light_right =  max(light_sensor3,light_sensor4); //return max of 3/4
+      byte range = 150; //threshold to rotate the CubeSat
+      int track_speed = 80; //speed of rotate the CubeSat
+      if (light_left - light_right > range && light_left > 800) { //if left side brighter
+        set_motor(track_speed, 1); //turn left
+      } else if (light_right - light_left > range && light_right > 800) { //if right side brighter
+        set_motor(track_speed, 0); //turn right
+      } else {
+        set_motor(0, 0); //stay
+      }
     }
 
   }
@@ -115,6 +116,7 @@ void receiveEvent(int howMany) {
         break;
       case '^':
         is_light_track = !is_light_track;
+        if (!is_light_track) set_motor(0, 0);
         Serial.print("Light tracking: ");
         Serial.println(is_light_track ? "ON" : "OFF");
         break;
@@ -130,4 +132,18 @@ void receiveEvent(int howMany) {
   }
   motor_spd = Wire.read();
   Serial.println(motor_spd);
+}
+
+void set_motor(int spd, bool dir) {
+  if (spd == 0) {
+    digitalWrite(MOTOR_IN1_PIN, LOW);
+    digitalWrite(MOTOR_IN2_PIN, LOW);
+  } else if (dir) {
+    digitalWrite(MOTOR_IN1_PIN, HIGH);
+    digitalWrite(MOTOR_IN2_PIN, LOW);
+  } else if (!dir) {
+    digitalWrite(MOTOR_IN1_PIN, LOW);
+    digitalWrite(MOTOR_IN2_PIN, HIGH);
+  }
+  analogWrite(MOTOR_PWM_PIN, spd);
 }
