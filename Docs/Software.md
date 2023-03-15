@@ -20,24 +20,25 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 <img src="../Figures/Software_Tutorial/2.3.png" width="500">
 
 ## 3. Install Libraries in Arduino IDE
-**3.1** In **Tools** > **Manage Libraries...** or click the **Library Manager** icon on the left bar, install the following three libraries with the latest version.
-- **WiFiManager** by *tzapu*  
+In **Tools** > **Manage Libraries...** or click the **Library Manager** icon on the left bar, install the following three libraries with the latest version.
+- **3.1** **WiFiManager** by *tzapu*  
 <img src="../Figures/Software_Tutorial/3.1.png" width="500">
 
-- **Adafruit SSD1306** by *Adafruit*  
+- **3.2** **Adafruit SSD1306** by *Adafruit*  
 <img src="../Figures/Software_Tutorial/3.2.png" width="500">
 
-- **Adafruit GFX Library** by *Adafruit*  
+- **3.3** **Adafruit GFX Library** by *Adafruit*  
 <img src="../Figures/Software_Tutorial/3.3.png" width="500">
 
 ## 4. Upload Code to ESP32-CAM
 **4.1** Open the file [`ESP32-CAM.ino`](../Software/ESP32-CAM/ESP32-CAM.ino) in the folder [`Software/ESP32-CAM`](../Software/ESP32-CAM/) with Arduino IDE.
 
 **4.2** Turn off the CubeSat by pushing the power switch upward and turn the CubeSat into **upload mode** by sliding the switch to the side of **Upload**.  
-**Figure1: CubeSat power switch off, Figure2: upload switch at upload mode**
+<img src="../Figures/Software_Tutorial/4.2a.jpg" width="300">
+<img src="../Figures/Software_Tutorial/4.2b.jpg" width="500">
 
 **4.3** Plug in the mini USB wire to the ESP32 Programmer (Red Module) and connect to your PC.  
-**Figure: mini usb wire plug into FTDI programmer**
+<img src="../Figures/Software_Tutorial/4.3.jpg" width="300">
 
 **4.4** In your Arduino IDE, go to **Tools** > **Board** > **esp32** > select **ESP32 Wrover Module**.  
 <img src="../Figures/Software_Tutorial/4.4.png" width="800">
@@ -59,7 +60,7 @@ During uploading, the message ***Writing at 0x00000000... (xx%)*** will be shown
 If the message ***Leaving... Hard resetting via RIS Pin...*** shows up, the upload is completed and the Mini USB wire can be unplugged.
 
 **4.7** Switch the CubeSat back to **Program Mode** for running the uploaded program.
-**Figure: CubeSat upload switch at program mode**
+<img src="../Figures/Software_Tutorial/4.7.jpg" width="500">
 
 ## 5. Upload Code to Arduino Nano
 **5.1** Plug the Mini USB connected to your PC to Arduino Nano.
