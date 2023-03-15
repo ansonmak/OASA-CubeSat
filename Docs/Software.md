@@ -63,6 +63,7 @@ If the message ***Leaving... Hard resetting via RIS Pin...*** shows up, the uplo
 
 ## 5. Upload Code to Arduino Nano
 **5.1** Plug the Mini USB connected to your PC to Arduino Nano.
+**Figure: Mini USB in Nano**
 
 **5.2** In **Tools** > **Board** > **Arduino AVR Boards** > select **Arduino Nano**.  
 In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  (If the upload failed, try different processor since the processor varies across different manufracturers.)
@@ -96,6 +97,9 @@ If the message ***SSID not found. Entered config mode.*** is shown on the displa
 **Figure1 WiFi Manager page, Figure 2 type SSID in manager**
 
 **6.8** Click save afterward and close the **WiFi Manager** page on your device. Turn off power of your CubeSat and turn on again to reset. Repeat ***Sec. 6.1*** to try the new WiFi connection.
+
+**6.9** If you want to erase the saved WiFi credentials to reconfigure the WiFi settings, you can press the button next to ESP32-CAM while turning on the CubeSat. This can force the ESP32-CAM entering the **Config mode**.  
+**Figure: Button next to esp32**
 
 ## 7. Control the CubeSat Remotely with the Control Panel
 **7.1** Camera Live Stream
