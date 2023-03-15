@@ -98,23 +98,36 @@ If the message ***"SSID not found. Entered config mode."*** is shown on the disp
 <img src="../Figures/Software_Tutorial/6.7a.jpg" width="400">
 <img src="../Figures/Software_Tutorial/6.7b.jpg" width="400">
 
-
-**6.8** Click save afterward and close the **WiFi Manager** page on your device. Turn off power of your CubeSat and turn on again to reset. Repeat ***Sec. 6.1*** to try the new WiFi connection.
+**6.8** Click save and close the **WiFi Manager** page on your device. Turn off power of your CubeSat and turn on again to reset. Repeat ***Sec. 6.1*** to try the new WiFi connection.
 
 **6.9** If you want to erase the saved WiFi credentials to reconfigure the WiFi settings, you can press the button next to ESP32-CAM while turning on the CubeSat. This can force the ESP32-CAM entering the **Config mode**.  
 <img src="../Figures/Software_Tutorial/6.9.jpg" width="400">
 
 ## 7. Control the CubeSat Remotely with the Control Panel
-**7.1** Camera Live Stream
+After the successful WiFi connection, a control panel shown below can be access by searching the CubeSat's IP address on the browser.  
+<img src="../Figures/Software_Tutorial/7.0.jpg" width="600">
 
-**7.2** Solar Panel Deploy
+**7.1** **Camera Live Stream**  
+Press the green **Start Stream** button to start the video stream. Press the red **Rotate Stream** button to rotate the video image if the orientation is wrong. The two sliding bar below are used to increase video resolution and video quilty.
 
-**7.3** Reaction Wheel Control
+**7.2** **Solar Panel Deploy**  
+The **Deploy** button is used to release the spring-loaded solar panels by activating the solenoids. 
 
-**7.4** Light Sensor Readings
+**7.3** **Reaction Wheel Control**  
+The third sliding bar is used to control the motor coupled to the reaction wheel. Drag the slider to control the motor rotate left and right. Press the **Stop Motor** button below to stop the motor.
 
-**7.5** Battery Voltage Meter
+**7.4** **Light Sensor Readings**  
+The CubeSat has four ports to install the light sensors. They are located at the left and right sides after the solar panels deployed.  
+<img src="../Figures/Software_Tutorial/7.4a.jpg" width="400">  
+After plugging the light sensors to the ports, the readings will be shown on the control panel.  
+<img src="../Figures/Software_Tutorial/7.4b.jpg" width="600">  
 
-**7.6** CubeSat LED Flash
+**7.5** **Battery Meter**  
+The top left green bar is the battery meter. Charge the battery if the percentage below 20%. The battery can be charged by plugging the mini USB wire to the charging module and connect the USB wire to any 5V power supply.  
+<img src="../Figures/Software_Tutorial/7.6.jpg" width="400">  
 
-**7.7** Auto Light Tracking
+**7.6** **CubeSat LED Flash**  
+The **Flash LED** button will flash the LED located on the ESP32-CAM.
+
+**7.7** **Auto Light Tracking**  
+The **Light Tracking** button will turn on an auto light tracking mode by comparing the light sensors values located at the left and right side. The CubeSat will rotate the reaction wheel to change its orientation for facing its solar panels to the brightest direction. 
