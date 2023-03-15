@@ -54,17 +54,17 @@ In **Tools** > **Manage Libraries...** or click the **Library Manager** icon on 
 **4.6** Click the **Upload** arrow icon on the top left corner to start compile and upload the code to ESP32-CAM.  
 <img src="../Figures/Software_Tutorial/4.6.png" width="500">
 
-During uploading, the message ***Writing at 0x00000000... (xx%)*** will be shown up in the **Output** window at the botton of Arduino IDE.  
+During uploading, the message ***"Writing at 0x00000000... (xx%)"*** will be shown up in the **Output** window at the botton of Arduino IDE.  
 ***Please do not unplug the USB wire during this process.***
 
-If the message ***Leaving... Hard resetting via RIS Pin...*** shows up, the upload is completed and the Mini USB wire can be unplugged.
+If the message ***"Leaving... Hard resetting via RIS Pin..."*** shows up, the upload is completed and the Mini USB wire can be unplugged.
 
 **4.7** Switch the CubeSat back to **Program Mode** for running the uploaded program.
 <img src="../Figures/Software_Tutorial/4.7.jpg" width="500">
 
 ## 5. Upload Code to Arduino Nano
-**5.1** Plug the Mini USB connected to your PC to Arduino Nano.
-**Figure: Mini USB in Nano**
+**5.1** Plug the Mini USB connected to your PC to Arduino Nano.  
+<img src="../Figures/Software_Tutorial/5.1.jpg" width="300">
 
 **5.2** In **Tools** > **Board** > **Arduino AVR Boards** > select **Arduino Nano**.  
 In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  (If the upload failed, try different processor since the processor varies across different manufracturers.)  
@@ -72,35 +72,37 @@ In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  (If the
 <img src="../Figures/Software_Tutorial/5.2b.png" height="300">
 
 **5.3** Click the **Upload** arrow icon on the top left corner to start compile and upload the code.  
-***Done Uploading*** message will be shown if completed.
+If completed, the message ***"Done Uploading"***  will be shown and the Mini USB wire can be unplugged.
 
 ## 6. Power the CubeSat and Connect to WiFi
 **6.1** Turn on the power switch by pushing the lever downward.  
-**Figure: CubeSat power switch on**
+<img src="../Figures/Software_Tutorial/6.1.jpg" height="400">
 
-**6.2** The text ***Searching WiFi...*** will be shown on the OLED diplay and the ESP32-CAM will search for the saved WiFi credentials in the board, which is the SSID and the password of a hotspot.  
-**Figure: OLED with searching WiFi**
+**6.2** The message ***"Searching WiFi..."*** will be shown on the OLED diplay and the ESP32-CAM will search for the saved WiFi credentials in the board, which is the SSID and the password of a hotspot.  
+<img src="../Figures/Software_Tutorial/6.2.jpg" width="500">
 
 **6.3** If the LED on the ESP32-CAM will flash multiple times, the ESP32-CAM is connected to the WiFi network and its IP adress will be shown on the display.  
-**Figure: OLED with IP address**  
-If the message ***SSID not found. Entered config mode.*** is shown on the display, the ESP32-CAM cannot found its saved WiFi network. See ***Sec. 6.5*** for how to change its WiFi configurations.
+<img src="../Figures/Software_Tutorial/6.3.jpg" width="500">  
+If the message ***"SSID not found. Entered config mode."*** is shown on the display, the ESP32-CAM cannot found its saved WiFi network. See ***Sec. 6.5*** for how to change its WiFi configurations.
 
 **6.4** Connect your device (PC, laptop, mobile phone, or tablet) to the same WiFi network that the CubeSat is connected to. Open the browser and search with the IP address. A web page of CubeSat's control panel will be shown.  Go to ***Sec. 7*** to see how to control the CubeSat.  
-**Figure: browser with IP address and control panel**
+<img src="../Figures/Software_Tutorial/6.4.jpg" width="400">
 
 **6.5** If the saved WiFi credentials is not found, the CubeSat will turn into **Config mode** and display its SSID name on the OLED display.  
-**Figure: OLED with failed connection and SSID name**
+<img src="../Figures/Software_Tutorial/6.5.jpg" width="500">
 
 **6.6** Use any device with WiFi connectivity to search SSID name of the CubeSat.  
-**Figure: mobile phone search cubesat SSID**
+<img src="../Figures/Software_Tutorial/6.6.jpg" height="500">
 
 **6.7** After your device is connected to the CubeSat through the SSID, the **WiFi Manager** page will show up on your device. Click **configure WiFi** > select the WiFi network that you want your CubeSat to connect or type the SSID and password in the box below.  
-**Figure1 WiFi Manager page, Figure 2 type SSID in manager**
+<img src="../Figures/Software_Tutorial/6.7a.jpg" width="400">
+<img src="../Figures/Software_Tutorial/6.7b.jpg" width="400">
+
 
 **6.8** Click save afterward and close the **WiFi Manager** page on your device. Turn off power of your CubeSat and turn on again to reset. Repeat ***Sec. 6.1*** to try the new WiFi connection.
 
 **6.9** If you want to erase the saved WiFi credentials to reconfigure the WiFi settings, you can press the button next to ESP32-CAM while turning on the CubeSat. This can force the ESP32-CAM entering the **Config mode**.  
-**Figure: Button next to esp32**
+<img src="../Figures/Software_Tutorial/6.9.jpg" width="400">
 
 ## 7. Control the CubeSat Remotely with the Control Panel
 **7.1** Camera Live Stream
