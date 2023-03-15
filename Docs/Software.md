@@ -83,7 +83,7 @@ If completed, the message ***"Done Uploading"***  will be shown and the Mini USB
 
 **6.3** If the LED on the ESP32-CAM will flash multiple times, the ESP32-CAM is connected to the WiFi network and its IP adress will be shown on the display.  
 <img src="../Figures/Software_Tutorial/6.3.jpg" width="500">  
-If the message ***"SSID not found. Entered config mode."*** is shown on the display, the ESP32-CAM cannot found its saved WiFi network. See ***Sec. 6.5*** for how to change its WiFi configurations.
+If the message ***"SSID not found. Entered config mode."*** is shown on the display, the ESP32-CAM cannot found its saved WiFi network. See ***Sec. 6.5*** for changing its WiFi configurations.
 
 **6.4** Connect your device (PC, laptop, mobile phone, or tablet) to the same WiFi network that the CubeSat is connected to. Open the browser and search with the IP address. A web page of CubeSat's control panel will be shown.  Go to ***Sec. 7*** to see how to control the CubeSat.  
 <img src="../Figures/Software_Tutorial/6.4.jpg" width="400">
