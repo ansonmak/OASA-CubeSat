@@ -123,7 +123,7 @@ After plugging the light sensors to the ports, the readings will be shown on the
 <img src="../Figures/Software_Tutorial/7.4b.jpg" width="600">  
 
 **7.5** **Battery Meter**  
-The top left green bar is the battery meter. Charge the battery if the percentage below 20%. The battery can be charged by plugging the mini USB wire to the charging module and connect the USB wire to any 5V power supply.  
+The top left green bar is the battery meter. Charge the battery if the percentage below 20%. The battery can be charged by plugging the mini USB wire to the charging module and connect the USB wire to any 5V power supply. The charging time would take around 20-30 mins.    
 <img src="../Figures/Software_Tutorial/7.6.jpg" width="400">  
 
 **7.6** **CubeSat LED Flash**  
