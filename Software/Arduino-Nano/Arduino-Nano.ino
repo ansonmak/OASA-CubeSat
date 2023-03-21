@@ -43,9 +43,8 @@ void setup() {
   Wire.onReceive(receiveEvent); // trigger function when data sent from master
 
   pinMode(SOLENOID_PIN,OUTPUT);
-  pinMode(MOTOR_PWM_PIN,OUTPUT);
-  pinMode(MOTOR_IN1_PIN,OUTPUT);
-  pinMode(MOTOR_IN2_PIN,OUTPUT);
+  pinMode(MOTOR_PWM1_PIN,OUTPUT);
+  pinMode(MOTOR_PWM2_PIN,OUTPUT);
 }
 
 void loop() {
@@ -132,15 +131,14 @@ void receiveEvent(int howMany) {
 }
 
 void set_motor(int spd, bool dir) {
-  if (spd == 0) {
-    digitalWrite(MOTOR_IN1_PIN, LOW);
-    digitalWrite(MOTOR_IN2_PIN, LOW);
-  } else if (dir) {
-    digitalWrite(MOTOR_IN1_PIN, HIGH);
-    digitalWrite(MOTOR_IN2_PIN, LOW);
-  } else if (!dir) {
-    digitalWrite(MOTOR_IN1_PIN, LOW);
-    digitalWrite(MOTOR_IN2_PIN, HIGH);
+  if (spd == 0) { //stop
+    digitalWrite(MOTOR_PWM1_PIN, LOW);
+    digitalWrite(MOTOR_PWM2_PIN, LOW);
+  } else if (dir) { //Clockwise
+    digitalWrite(MOTOR_PWM1_PIN, LOW);
+    analogWrite(MOTOR_PWM2_PIN, spd);
+  } else if (!dir) { //Anticlockwise
+    analogWrite(MOTOR_PWM1_PIN, spd);
+    digitalWrite(MOTOR_PWM2_PIN, LOW);
   }
-  analogWrite(MOTOR_PWM_PIN, spd);
 }
