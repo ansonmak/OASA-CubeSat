@@ -2,14 +2,22 @@
 
 #define SLAVE_ADDR             8
 #define BATTERY_VOLTAGE_PIN   A0
-#define LIGHT_SENSOR1_PIN     A1
-#define LIGHT_SENSOR2_PIN     A2
-#define LIGHT_SENSOR3_PIN     A3
-#define LIGHT_SENSOR4_PIN     A6
+#define SOLAR_VOLTAGE_PIN     A1
+#define LIGHT_SENSOR1_PIN     A2
+#define LIGHT_SENSOR2_PIN     A3
+#define LIGHT_SENSOR3_PIN     A7
+#define LIGHT_SENSOR4_PIN     A7
+#define LED1_PIN               2
+#define SERVO1_PIN             3
+#define LED2_PIN               4
+#define MOTOR_PWM1_PIN         5
+#define MOTOR_PWM2_PIN         6
 #define SOLENOID_PIN           7
-#define MOTOR_PWM_PIN          3
-#define MOTOR_IN1_PIN          5
-#define MOTOR_IN2_PIN          6
+#define LED3_PIN               8
+#define SERVO2_PIN             9
+#define SERVO3_PIN            10
+#define SERVO4_PIN            11
+#define LED4_PIN              12
 
 unsigned long prev_t = 0;
 unsigned long control_time = 50;  // run every ms 
