@@ -33,7 +33,7 @@ In **Tools** > **Manage Libraries...** or click the **Library Manager** icon on 
 ## 4. Upload Code to ESP32-CAM
 **4.1** Open the file [`ESP32-CAM.ino`](../Software/ESP32-CAM/ESP32-CAM.ino) in the folder [`Software/ESP32-CAM`](../Software/ESP32-CAM/) with Arduino IDE.
 
-**4.2** Turn off the CubeSat by pushing the power switch upward and turn the CubeSat into **upload mode** by sliding the switch to the side of **Upload**.  
+**4.2** Turn off the CubeSat by pushing the lever of power switch upward and turn the CubeSat into **upload mode** by sliding the switch to the side of **Upload**.  
 <img src="../Figures/Software_Tutorial/4.2a.jpg" height="400">
 <img src="../Figures/Software_Tutorial/4.2b.jpg" height="400">
 
