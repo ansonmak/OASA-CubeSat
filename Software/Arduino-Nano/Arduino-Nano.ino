@@ -26,6 +26,7 @@ const unsigned long solenoid_timer = 200; //500 // solenoid active duration
 bool start_solenoid_timer = false;
 
 byte battery_voltage_sensor = 0;
+byte solar_voltage_sensor = 0;
 byte light_sensor1 = 0;
 byte light_sensor2 = 0;
 byte light_sensor3 = 0;
@@ -52,6 +53,7 @@ void loop() {
   if (cur_t - prev_t >= control_time) {
     prev_t = cur_t;
     battery_voltage_sensor = map(analogRead(BATTERY_VOLTAGE_PIN),0,1023,0,255);
+    solar_voltage_sensor = map(analogRead(SOLAR_VOLTAGE_PIN),0,1023,0,255);
     light_sensor1 = map(analogRead(LIGHT_SENSOR1_PIN),0,1023,0,255);
     light_sensor2 = map(analogRead(LIGHT_SENSOR2_PIN),0,1023,0,255);
     light_sensor3 = map(analogRead(LIGHT_SENSOR3_PIN),0,1023,0,255);
@@ -94,6 +96,7 @@ void loop() {
 
 void requestEvent() {
   Wire.write(battery_voltage_sensor);
+  Wire.write(solar_voltage_sensor);
   Wire.write(light_sensor1);
   Wire.write(light_sensor2);
   Wire.write(light_sensor3);

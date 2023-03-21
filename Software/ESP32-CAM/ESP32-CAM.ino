@@ -35,13 +35,14 @@ unsigned long slave_talk_time = 100; // time interval get data from slave
 // received data from slave
 int battery_voltage_sensor = 0;
 float battery_voltage = 0.0;
-float R1 = 100; //(k ohm) Resistance of R1
-float R2 = 100; //(k ohm) Resistance of R2
+float R1 = 10; //(k ohm) Resistance of R1
+float R2 = 10; //(k ohm) Resistance of R2
 float voltage_divider_constant = (R1+R2)/R2; // V_battery  = (R1+R2)/R2 * V_Measure 
 const float voltage_offset = 0.15;
 const float battery_min_voltage = 3.2;
 const float battery_max_voltage = 4.1;
 float battery_percentage = 0.0;
+int solar_voltage_sensor = 0;
 int light_sensor1 = 0;
 int light_sensor2 = 0;
 int light_sensor3 = 0;
@@ -198,7 +199,7 @@ void loop() {
 
   if (cur_t - slave_prev_t >= slave_talk_time) {
     slave_prev_t = cur_t;
-    int byte_num = 5; // number of bytes to request
+    int byte_num = 6; // number of bytes to request
     Wire.requestFrom(SLAVE_ADDR, byte_num);
 
     char receive_byte[byte_num];
@@ -208,10 +209,11 @@ void loop() {
       receive_idx++;
     }
     battery_voltage_sensor = int(receive_byte[0]);
-    light_sensor1 = int(receive_byte[1]);
-    light_sensor2 = int(receive_byte[2]);
-    light_sensor3 = int(receive_byte[3]);
-    light_sensor4 = int(receive_byte[4]);
+    solar_voltage_sensor = int(receive_byte[1]);
+    light_sensor1 = int(receive_byte[2]);
+    light_sensor2 = int(receive_byte[3]);
+    light_sensor3 = int(receive_byte[4]);
+    light_sensor4 = int(receive_byte[5]);
     battery_voltage = float(battery_voltage_sensor)/255 * 5.0 * voltage_divider_constant + voltage_offset;
     battery_percentage = mapfloat(battery_voltage, battery_min_voltage, battery_max_voltage, 0, 100);
 
