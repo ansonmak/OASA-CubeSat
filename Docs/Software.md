@@ -1,10 +1,10 @@
 # Software Tutorial
 
 ## 1. Install Arduino IDE
-Visit https://www.arduino.cc/en/software to download and install Arduino IDE software on your PC.
+Visit https://www.arduino.cc/en/software to download and install Arduino IDE software on your computer.
 
 ## 2. Install ESP32 Board in Arduino IDE
-After you have installed Arduino IDE on your PC, you will need to install the ESP32 board library in Arduino IDE before uploading code to the ESP32 board. 
+After you have installed Arduino IDE on your computer, you will need to install the ESP32 board library in Arduino IDE before uploading code to the ESP32 board. 
 
 **2.1** Launch Arduino IDE and go to **Files** > **Preferences**.  
 <img src="../Figures/Software_Tutorial/2.1.png" width="500">
