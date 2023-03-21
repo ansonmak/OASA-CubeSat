@@ -20,6 +20,7 @@
 #include "Wire.h"
 #include <Adafruit_GFX.h> // Requires Adafruit GFX library
 #include <Adafruit_SSD1306.h> // Requires Adafruit SSD1306 library
+#include "MPU9250/MPU9250.h"
 
 // AP Credentials
 // const String CUBESAT_ID = "000";
@@ -46,6 +47,17 @@ int light_sensor1 = 0;
 int light_sensor2 = 0;
 int light_sensor3 = 0;
 int light_sensor4 = 0;
+
+// IMU Stuff
+unsigned long imu_prev_t = 0;
+unsigned long imu_talk_time = 20;
+float imu_roll = 0.0;
+float imu_pitch = 0.0;
+float imu_yaw = 0.0;
+float imu_MagX = 0.0;
+float imu_MagY = 0.0;
+float imu_MagZ = 0.0;
+MPU9250 IMU;
 
 // data send to slave
 extern bool send_slave;
@@ -190,6 +202,26 @@ void setup() {
   display.println(WiFi.localIP());
   display.display(); 
 
+  //MPU 9250 i2c connection
+  if (!IMU.setup(0x68)) {
+      while (1) {
+          Serial.println("MPU connection failed. Please check your connection with connection_check example.");
+          delay(3000);
+      }
+  }
+  delay(5000);
+  IMU.setMagneticDeclination(-3.26); // Hong Kong
+  Serial.println("Calibrating Accelerometer Gyroscope...");
+  led_blink(); 
+  delay(3000);
+  IMU.calibrateAccelGyro();
+  Serial.println("Calibrating Magentometer...");
+  led_blink();
+  delay(3000);
+  IMU.calibrateMag();
+  led_multi_blink(5);
+  Serial.println("Calibration done.");
+
   slave_prev_t = millis();
 }
 
@@ -229,6 +261,30 @@ void loop() {
       Wire.write(motor_spd);
       Wire.endTransmission();
       send_slave = false;
+    }
+  }
+
+  if (cur_t - imu_prev_t >= imu_talk_time) {
+    imu_prev_t = cur_t;
+    if (IMU.update()) {
+      // Serial.print(IMU.getAccX()); Serial.print(", ");
+      // Serial.print(IMU.getAccY()); Serial.print(", ");
+      // Serial.print(IMU.getAccZ()); Serial.print(", ");
+      // Serial.print(IMU.getGyroX()); Serial.print(", ");
+      // Serial.print(IMU.getGyroY()); Serial.print(", ");
+      // Serial.print(IMU.getGyroZ()); Serial.print(", ");
+      // Serial.print(IMU.getMagX()); Serial.print(", ");
+      // Serial.print(IMU.getMagY()); Serial.print(", ");
+      // Serial.println(IMU.getMagZ());
+      imu_roll = IMU.getRoll();
+      imu_pitch = IMU.getPitch();
+      imu_yaw = IMU.getYaw();
+      imu_MagX = IMU.getMagX();
+      imu_MagY = IMU.getMagY();
+      imu_MagZ = IMU.getMagZ();
+      Serial.print(imu_roll); Serial.print(", ");
+      Serial.print(imu_pitch); Serial.print(", ");
+      Serial.println(imu_yaw);
     }
   }
 
