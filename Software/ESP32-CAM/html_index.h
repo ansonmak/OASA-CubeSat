@@ -384,6 +384,9 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                 <br>
                 <div class="meter" id = "bat"></div>
                 <br>
+                Solar Panel:
+                <br>
+                <div class="meter" id = "solar"></div>
                 Light sensor 1:
                 <br>
                 <div class="meter" id = "light1"></div>
@@ -451,6 +454,15 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
                     green = perc/100 * max_col_val;
                     color = "rgb("+red+","+green+",0)";
                     document.getElementById("bat").style.backgroundColor=color
+                    // solar panel
+                    solar = data.solar
+                    document.getElementById("solar").style.width=(solar+"%")
+                    document.getElementById("solar").innerHTML=solar
+                    max_col_val = 170;
+                    red = (255 - solar)/255*max_col_val;
+                    green = solar/255*max_col_val;
+                    color = "rgb("+red+","+green+",0)";
+                    document.getElementById("solar").style.backgroundColor=color
                     // light sensor1
                     light1 = data.light1
                     document.getElementById("light1").style.width=(light1+"%")

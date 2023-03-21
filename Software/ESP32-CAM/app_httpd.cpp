@@ -25,6 +25,7 @@ bool motor_dir = true;
 // variables receiced from slave
 extern float battery_voltage;
 extern float battery_percentage;
+extern int solar_voltage_sensor;
 extern int light_sensor1;
 extern int light_sensor2;
 extern int light_sensor3;
@@ -296,6 +297,7 @@ static esp_err_t status_handler(httpd_req_t *req) {
   p += sprintf(p, "\"quality\":%u,", s->status.quality);
   p += sprintf(p, "\"bat_vol\":%.2f,", battery_voltage);
   p += sprintf(p, "\"bat_percent\":%.0f,", battery_percentage);
+  p += sprintf(p, "\"solar\":%u,", solar_voltage_sensor);
   p += sprintf(p, "\"light1\":%u,", light_sensor1);
   p += sprintf(p, "\"light2\":%u,", light_sensor2);
   p += sprintf(p, "\"light3\":%u,", light_sensor3);
