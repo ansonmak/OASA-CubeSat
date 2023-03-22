@@ -8,9 +8,10 @@
 ![](../Figures/ComponentBoxList.png)
 
 - ## Electronics
-    - ### Module 1: Including ESP32-CAM, Arduino Nano, OLED Display, and ESP32 Programmer
-    - ### Module 2
-    - ### Module 3
+    - ### Mainboard
+    - ### ESP32-CAM
+    - ### Arduino Nano
+    - ### OLED Display
 
 - ## Tools Set
     - ### Hex Key: 1.5mm, 2.0mm, and 2.5mm
@@ -21,7 +22,11 @@
 
 - ## Reaction Wheel Parts
 
-- ## Battery: 18650 cell x 2
+- ## Battery 18650 cell x 2
+
+- ## Battery USB Charger
+
+- ## Battery Power Box
 
 - ## Light Sensor With Wire and Header x 4
 
