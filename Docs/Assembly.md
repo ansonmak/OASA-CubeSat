@@ -41,3 +41,12 @@
 
 ## Step 14
 ![](../Figures/Assembly_Drawings/Step14.png)
+
+## Step 15
+![](../Figures/Assembly_Drawings/Step15.png)
+
+## Step 16
+![](../Figures/Assembly_Drawings/Step16.png)
+
+## Step 17
+![](../Figures/Assembly_Drawings/Step17.png)
