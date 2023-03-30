@@ -72,7 +72,7 @@ In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  (If the
 If completed, the message ***"Done Uploading"***  will be shown and the Mini USB wire can be unplugged.
 
 ## 6. Power the CubeSat and Connect to WiFi
-**6.1** Turn on the power switch by pushing the lever downward.  
+**6.1** Turn on the power switch by sliding the switch to the **ON** side.  
 <img src="../Figures/Software_Tutorial/6.1.jpg" height="400">
 
 **6.2** The message ***"Searching WiFi..."*** will be shown on the OLED diplay and the ESP32-CAM will search for the saved WiFi credentials in the board, which is the SSID and the password of a hotspot.  
@@ -126,8 +126,11 @@ The top left green bar is the battery meter. The four LEDs on the mainboard are 
 - 3 LEDs ON: 50-75%
 - 2 LEDs ON: 25-50%
 - 1 LED ON: 0-25%  
+
 <img src="../Figures/Software_Tutorial/7.5.jpg" width="600">  
-If the percentage drops below 25%, take out the batteries and put it in the charger for charging.  
+
+If the percentage drops below 25%, take out the batteries and put it in the charger for charging.
+
 
 **7.6** **CubeSat LED Flash**  
 The **Flash LED** button will flash the LED located on the ESP32-CAM.
