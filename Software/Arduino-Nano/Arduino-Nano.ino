@@ -22,7 +22,7 @@
 unsigned long prev_t = 0;
 unsigned long control_time = 50;  // run every ms 
 unsigned long solenoid_t = 0;
-const unsigned long solenoid_timer = 200; //500 // solenoid active duration
+const unsigned long solenoid_timer = 50; //500 // solenoid active duration
 bool start_solenoid_timer = false;
 
 byte battery_voltage_sensor = 0;

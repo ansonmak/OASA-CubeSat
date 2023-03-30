@@ -139,7 +139,7 @@ void setup() {
   }
   delay(100);
   display.clearDisplay();
-  display.setRotation(2) // rotate screen 180 degree
+  display.setRotation(2); // rotate screen 180 degree
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
