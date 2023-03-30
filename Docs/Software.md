@@ -125,12 +125,9 @@ The top left green bar is the battery meter. The four LEDs on the mainboard are 
 - 4 LEDs ON: 75-100%
 - 3 LEDs ON: 50-75%
 - 2 LEDs ON: 25-50%
-- 1 LED ON: 0-25%  
+- 1 LED ON: 0-25%. ***Need Charging: take out the batteries and put it in the charger.***
 
 <img src="../Figures/Software_Tutorial/7.5.jpg" width="600">  
-
-If the percentage drops below 25%, take out the batteries and put it in the charger for charging.
-
 
 **7.6** **CubeSat LED Flash**  
 The **Flash LED** button will flash the LED located on the ESP32-CAM.
