@@ -33,12 +33,12 @@ In **Tools** > **Manage Libraries...** or click the **Library Manager** icon on 
 ## 4. Upload Code to ESP32-CAM
 **4.1** Open the file [`ESP32-CAM.ino`](../Software/ESP32-CAM/ESP32-CAM.ino) in the folder [`Software/ESP32-CAM`](../Software/ESP32-CAM/) with Arduino IDE.
 
-**4.2** Turn off the CubeSat by pushing the lever of power switch upward and turn the CubeSat into **upload mode** by sliding the switch to the side of **Upload**.  
-<img src="../Figures/Software_Tutorial/4.2a.jpg" height="400">
-<img src="../Figures/Software_Tutorial/4.2b.jpg" height="400">
+**4.2** Turn off the CubeSat by sliding the power switch on the battery box to the **OFF** side.  
+<img src="../Figures/Software_Tutorial/4.2.jpg" width="500">
 
-**4.3** Plug in the mini USB wire to the ESP32 Programmer (Red Module) and connect to your PC.  
-<img src="../Figures/Software_Tutorial/4.3.jpg" width="300">
+**4.3** Plug in the mini USB wire to the mainboard and connect to your PC.  
+<img src="../Figures/Software_Tutorial/4.3a.jpg" height="300">
+<img src="../Figures/Software_Tutorial/4.3b.jpg" height="300">
 
 **4.4** In your Arduino IDE, go to **Tools** > **Board** > **esp32** > select **ESP32 Wrover Module**.  
 <img src="../Figures/Software_Tutorial/4.4.png" width="800">
@@ -59,12 +59,9 @@ During uploading, the message ***"Writing at 0x00000000... (xx%)"*** will be sho
 
 If the message ***"Leaving... Hard resetting via RIS Pin..."*** shows up, the upload is completed and the Mini USB wire can be unplugged.
 
-**4.7** Switch the CubeSat back to **Program Mode** for running the uploaded program.
-<img src="../Figures/Software_Tutorial/4.7.jpg" width="500">
-
 ## 5. Upload Code to Arduino Nano
 **5.1** Plug the Mini USB connected to your PC to Arduino Nano.  
-<img src="../Figures/Software_Tutorial/5.1.jpg" width="300">
+<img src="../Figures/Software_Tutorial/5.1.jpg" width="500">
 
 **5.2** In **Tools** > **Board** > **Arduino AVR Boards** > select **Arduino Nano**.  
 In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  (If the upload failed, try different processor since the processor varies across different manufracturers.)  
@@ -100,7 +97,7 @@ If the message ***"SSID not found. Entered config mode."*** is shown on the disp
 
 **6.8** Click save and close the **WiFi Manager** page on your device. Turn off power of your CubeSat and turn on again to reset. Repeat ***Sec. 6.1*** to try the new WiFi connection.
 
-**6.9** If you want to erase the saved WiFi credentials to reconfigure the WiFi settings, you can press the button next to ESP32-CAM while turning on the CubeSat. This can force the ESP32-CAM entering the **Config mode**.  
+**6.9** If you want to erase the saved WiFi credentials to reconfigure the WiFi settings, you can press the hold the **WiFi Reset** button while pressing the **ESP Reset** button once. This can force the ESP32-CAM entering the **Config mode**.  
 <img src="../Figures/Software_Tutorial/6.9.jpg" width="400">
 
 ## 7. Control the CubeSat Remotely with the Control Panel
@@ -118,13 +115,19 @@ The third sliding bar is used to control the motor coupled to the reaction wheel
 
 **7.4** **Light Sensor Readings**  
 The CubeSat has four ports to install the light sensors. They are located at the left and right sides after the solar panels deployed.  
-<img src="../Figures/Software_Tutorial/7.4a.jpg" width="400">  
+<img src="../Figures/Software_Tutorial/7.4a.jpg" width="400">
+<img src="../Figures/Software_Tutorial/7.4b.jpg" width="400">  
 After plugging the light sensors to the ports, the readings will be shown on the control panel.  
-<img src="../Figures/Software_Tutorial/7.4b.jpg" width="600">  
+<img src="../Figures/Software_Tutorial/7.4c.jpg" width="600">  
 
 **7.5** **Battery Meter**  
-The top left green bar is the battery meter. Charge the battery if the percentage below 20%. The battery can be charged by plugging the mini USB wire to the charging module and connect the USB wire to any 5V power supply. The charging time would take around 20-30 mins.    
-<img src="../Figures/Software_Tutorial/7.6.jpg" width="400">  
+The top left green bar is the battery meter. The four LEDs on the mainboard are also showing the battery percentage: 
+- 4 LEDs ON: 75-100%
+- 3 LEDs ON: 50-75%
+- 2 LEDs ON: 25-50%
+- 1 LED ON: 0-25%  
+<img src="../Figures/Software_Tutorial/7.5.jpg" width="600">  
+If the percentage drops below 25%, take out the batteries and put it in the charger for charging.  
 
 **7.6** **CubeSat LED Flash**  
 The **Flash LED** button will flash the LED located on the ESP32-CAM.
