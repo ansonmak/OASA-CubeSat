@@ -39,8 +39,8 @@ float R1 = 10; //(k ohm) Resistance of R1
 float R2 = 10; //(k ohm) Resistance of R2
 float voltage_divider_constant = (R1+R2)/R2; // V_battery  = (R1+R2)/R2 * V_Measure 
 const float voltage_offset = 0.15;
-const float battery_min_voltage = 3.2;
-const float battery_max_voltage = 4.1;
+const float battery_min_voltage = 7.4;
+const float battery_max_voltage = 8.2;
 float battery_percentage = 0.0;
 int solar_voltage_sensor = 0;
 int light_sensor1 = 0;
