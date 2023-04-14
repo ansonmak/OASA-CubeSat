@@ -72,7 +72,7 @@ In  **Tools** > **Processor** > select **ATmega328P (Old Bootloader)**.  (If the
 If completed, the message ***"Done Uploading"***  will be shown and the Mini USB wire can be unplugged.
 
 ## 6. Power the CubeSat and Connect to WiFi
-**6.1** Turn on the power switch by sliding the switch to the **ON** side.  
+**6.1** Turn on the power switch by sliding the switch to the **ON** side. If the OLED doesn't show up any message, press the **ESP reset** button.
 <img src="../Figures/Software_Tutorial/6.1.jpg" height="400">
 
 **6.2** The message ***"Searching WiFi..."*** will be shown on the OLED diplay and the ESP32-CAM will search for the saved WiFi credentials in the board, which is the SSID and the password of a hotspot.  
