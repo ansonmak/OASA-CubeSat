@@ -1,4 +1,4 @@
-# OASA-CubeSat
+# OASA-CubeSat Version 2.0
 <p align = "center">
 <img src="Figures/CAD_model.png" height="220"> 
 <img src="Figures/Assembled_model.jpg" height="220"> 
