@@ -5,7 +5,7 @@
 #define SOLAR_VOLTAGE_PIN     A1
 #define LIGHT_SENSOR1_PIN     A2
 #define LIGHT_SENSOR2_PIN     A3
-#define LIGHT_SENSOR3_PIN     A7
+#define LIGHT_SENSOR3_PIN     A6
 #define LIGHT_SENSOR4_PIN     A7
 #define LED1_PIN               2
 #define SERVO1_PIN             3
