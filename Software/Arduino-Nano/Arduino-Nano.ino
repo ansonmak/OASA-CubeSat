@@ -77,13 +77,14 @@ void loop() {
 
     if (is_light_track) {
       //TODO: function for students to implement
-      byte light_left = max(light_sensor1,light_sensor2); //return max of 1/2
-      byte light_right =  max(light_sensor3,light_sensor4); //return max of 3/4
-      byte range = 150; //threshold to rotate the CubeSat
-      int track_speed = 80; //speed of rotate the CubeSat
-      if (light_left - light_right > range && light_left > 800) { //if left side brighter
+      byte light_left = max(light_sensor1,light_sensor4); //return max of 1/4
+      byte light_right =  max(light_sensor2,light_sensor3); //return max of 2/3
+      byte range = 50; //threshold to rotate the CubeSat
+      byte track_speed = 80; //speed of rotate the CubeSat
+      byte light_min = 80; // minimun light value to move
+      if (light_left - light_right > range && light_left > light_min) { //if left side brighter
         set_motor(track_speed, 1); //turn left
-      } else if (light_right - light_left > range && light_right > 800) { //if right side brighter
+      } else if (light_right - light_left > range && light_right > light_min) { //if right side brighter
         set_motor(track_speed, 0); //turn right
       } else {
         set_motor(0, 0); //stay
