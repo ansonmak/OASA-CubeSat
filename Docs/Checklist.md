@@ -1,6 +1,6 @@
 # CubeSat Kit Checklist
-- ## 3D Printed Parts
-![](../Figures/3DP_PartList.png)
+- ## Parts
+![](../Figures/PartList.png)
 
 - ## Components Box
     - Components of each cell in the box:
